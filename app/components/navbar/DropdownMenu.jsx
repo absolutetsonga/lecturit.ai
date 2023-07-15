@@ -12,8 +12,8 @@ export const DropdownMenu = ({
 
     return (
         <div
-            className={`absolute top-16 sm:top-18 right-6 sm:-right-20 my-4 text-base list-none bg-gray-100 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 transition-all ${
-                toggleDropdown ? 'opacity-100 visible' : 'opacity-0 invisible'
+            className={`sm:top-18 absolute right-6 top-16 my-4 list-none divide-y divide-gray-100 rounded-lg bg-gray-100 text-base shadow transition-all dark:divide-gray-600 dark:bg-gray-700 sm:-right-20 ${
+                toggleDropdown ? 'visible opacity-100' : 'invisible opacity-0'
             }`}
             id="user-dropdown"
         >
@@ -21,7 +21,7 @@ export const DropdownMenu = ({
                 <span className="block text-sm text-gray-900 dark:text-white">
                     {session.user.name}
                 </span>
-                <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
+                <span className="block truncate  text-sm text-gray-500 dark:text-gray-400">
                     {session.user.email}
                 </span>
             </div>
@@ -34,7 +34,7 @@ export const DropdownMenu = ({
                         }}
                         content={'View Profile'}
                         className={
-                            'block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                            'block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white'
                         }
                     />
                 </li>
@@ -44,7 +44,7 @@ export const DropdownMenu = ({
                         onClick={() => setToggleDropdown(false)}
                         content={'New Summary'}
                         className={
-                            'block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                            'block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white'
                         }
                     />
                 </li>
@@ -54,7 +54,7 @@ export const DropdownMenu = ({
                         onClick={() => setToggleDropdown(false)}
                         content={'Check Summaries'}
                         className={
-                            'block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+                            'block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white'
                         }
                     />
                 </li>
@@ -64,7 +64,7 @@ export const DropdownMenu = ({
                             setToggleDropdown(false);
                             signOut();
                         }}
-                        className="block px-4 py-2 text-sm w-full text-left text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                         Sign Out
                     </button>
