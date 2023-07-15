@@ -1,4 +1,5 @@
 import { Poppins } from 'next/font/google';
+import NavBar from './components/navbar/NavBar';
 import './globals.css';
 
 import AuthProvider from './components/providers/AuthProvider';
@@ -16,7 +17,12 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <ThemeSwitchProvider>
                 <AuthProvider>
-                    <body className={poppins.className}>{children}</body>
+                    <body className={poppins.className}>
+                        <main className="flex flex-col items-center px-8 md:px-16">
+                            <NavBar />
+                            <div className="py-40">{children}</div>
+                        </main>
+                    </body>
                 </AuthProvider>
             </ThemeSwitchProvider>
         </html>
