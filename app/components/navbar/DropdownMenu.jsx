@@ -23,7 +23,7 @@ const DropdownMenu = ({ toggleDropdown, setToggleDropdown, signOut }) => {
             <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                     <NavbarButton
-                        href={'/profile'}
+                        href={'/pages/profile'}
                         onClick={() => {
                             setToggleDropdown(false);
                         }}
@@ -35,7 +35,7 @@ const DropdownMenu = ({ toggleDropdown, setToggleDropdown, signOut }) => {
                 </li>
                 <li>
                     <NavbarButton
-                        href={'/add-summary'}
+                        href={'/pages/new-summary'}
                         onClick={() => setToggleDropdown(false)}
                         content={'New Summary'}
                         className={
@@ -45,7 +45,7 @@ const DropdownMenu = ({ toggleDropdown, setToggleDropdown, signOut }) => {
                 </li>
                 <li>
                     <NavbarButton
-                        href={'/summaries'}
+                        href={'/pages/summaries'}
                         onClick={() => setToggleDropdown(false)}
                         content={'Check Summaries'}
                         className={

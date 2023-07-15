@@ -38,7 +38,7 @@ const NavBar = () => {
                     {session?.user ? (
                         <div className="flex items-center gap-6">
                             <div className="flex flex-row items-center">
-                                <Link href="/add-summary">
+                                <Link href="/pages/new-summary">
                                     <button className="navbar_button hidden sm:block">
                                         <div className="h-[50px] w-[50px] bg-add-dark bg-no-repeat object-cover transition-all dark:bg-add-white"></div>
                                     </button>
