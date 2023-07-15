@@ -3,7 +3,7 @@
 import { ThemeProvider } from 'next-themes';
 import { useState, useEffect } from 'react';
 
-const ThemeProvider = ({ children }) => {
+const ThemeSwitchProvider = ({ children }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => setMounted(true), []);
@@ -13,4 +13,4 @@ const ThemeProvider = ({ children }) => {
     return <ThemeProvider attribute="class">{children}</ThemeProvider>;
 };
 
-export default ThemeProvider;
+export default ThemeSwitchProvider;
