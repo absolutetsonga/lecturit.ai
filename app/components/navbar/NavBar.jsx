@@ -6,10 +6,10 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
-import { DropdownMenu } from './DropdownMenu';
+import DropdownMenu from './DropdownMenu';
 import ThemeSwitcher from './ThemeSwitcher';
 
-export const NavBar = () => {
+const NavBar = () => {
     const { data: session } = useSession();
 
     const [providers, setProviders] = useState(null);
@@ -90,3 +90,5 @@ export const NavBar = () => {
         </nav>
     );
 };
+
+export default NavBar;

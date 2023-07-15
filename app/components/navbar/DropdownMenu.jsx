@@ -1,13 +1,8 @@
-import { NavbarButton } from './NavbarButton';
-
 import { useSession } from 'next-auth/react';
+import NavbarButton from './NavBarButton';
 import ThemeSwitcher from './ThemeSwitcher';
 
-export const DropdownMenu = ({
-    toggleDropdown,
-    setToggleDropdown,
-    signOut,
-}) => {
+const DropdownMenu = ({ toggleDropdown, setToggleDropdown, signOut }) => {
     const { data: session } = useSession();
 
     return (
@@ -76,3 +71,5 @@ export const DropdownMenu = ({
         </div>
     );
 };
+
+export default DropdownMenu;
