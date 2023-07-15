@@ -49,6 +49,8 @@ const newSummary = () => {
                 const formData = await handleDataAvailable(event);
                 const transcript = await getTranscript(formData);
                 const summary = await addSummary(transcript.text);
+
+                return summary;
             });
         } catch (error) {
             console.error(
@@ -86,7 +88,7 @@ const newSummary = () => {
                 '/api/whisper',
                 formData,
             );
-
+        
             return transcript;
         } catch (error) {
             console.error(
