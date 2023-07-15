@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth/next';
+import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 import User from '@/models/user';
@@ -43,7 +43,7 @@ const handler = NextAuth({
                 return true;
             } catch (error) {
                 console.error(
-                    `Error while trying to Sign In: ${error.message}`,
+                    `Error while trying to Sign In: ${error.message}`
                 );
 
                 return false;
