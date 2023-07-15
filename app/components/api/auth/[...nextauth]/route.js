@@ -43,7 +43,7 @@ const handler = NextAuth({
                 return true;
             } catch (error) {
                 console.error(
-                    `Error while trying to Sign In: ${error.message}`
+                    `Error while trying to Sign In: ${error.message}`,
                 );
 
                 return false;
