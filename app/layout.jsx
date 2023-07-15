@@ -17,7 +17,9 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <ThemeSwitchProvider>
                 <AuthProvider>
-                    <body className={poppins.className}>
+                    <body
+                        className={`dark:bg-gray-900 dark:text-gray-50 ${poppins.className}`}
+                    >
                         <main className="flex flex-col items-center px-8 md:px-16">
                             <NavBar />
                             <div className="py-40">{children}</div>
