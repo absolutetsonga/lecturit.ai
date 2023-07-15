@@ -8,8 +8,6 @@ import { PromptTemplate } from 'langchain/prompts';
 export const POST = async (req) => {
     const { summary, userId } = await req.json();
 
-    console.log({ summary });
-
     try {
         await connectToDb();
 
@@ -29,16 +27,12 @@ export const POST = async (req) => {
         const formattedSummary = await prompt.format({ summary });
         const result = await model.call(formattedSummary);
 
-        console.log({ result });
-
         const createdSummary = await Summary.create({
             summary: result,
             user: userId,
         });
 
-        console.log({ createdSummary });
-
-        return new Response(JSON.stringify(result), {
+        return new Response(JSON.stringify(createdSummary), {
             status: 201,
         });
     } catch (err) {
