@@ -4,12 +4,13 @@ import axios from 'axios';
 
 import { useState, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
-import { data } from 'autoprefixer';
+import { useSession } from 'next-auth/react';
 
 const newSummary = () => {
     let stream;
 
     const { theme } = useTheme();
+    const { data: session } = useSession();
 
     const [microphoneAccess, setMicrophoneAccess] = useState(false);
     const [isRecordingAudio, setIsRecordingAudio] = useState(false);
@@ -47,8 +48,9 @@ const newSummary = () => {
             mediaRecorder.addEventListener('dataavailable', async (event) => {
                 const formData = await handleDataAvailable(event);
                 const transcript = await getTranscript(formData);
+                const summary = await addSummary(transcript.text);
 
-                console.log(transcript);
+                console.log(summary);
             });
         } catch (error) {
             console.error(
@@ -82,12 +84,30 @@ const newSummary = () => {
 
     const getTranscript = async (formData) => {
         try {
-            const { data: transcript } = await axios.post('/api/whisper', formData);
+            const { data: transcript } = await axios.post(
+                '/api/whisper',
+                formData,
+            );
 
             return transcript;
         } catch (error) {
             console.error(
-                `Error while trying to get response from Whisper: ${error.message}`,
+                `Error while trying to get response from Whisper. Error message: ${error.message}`,
+            );
+        }
+    };
+
+    const addSummary = async (transcript) => {
+        try {
+            const responseBackend = await axios.post('/api/summary/new', {
+                userId: session?.user.id,
+                summary: JSON.stringify(transcript),
+            });
+
+            return responseBackend;
+        } catch (error) {
+            console.error(
+                `Error while trying to add summary. Error message: ${error.message}`,
             );
         }
     };
