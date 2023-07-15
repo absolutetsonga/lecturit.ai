@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
             <ThemeSwitchProvider>
                 <AuthProvider>
                     <body
-                        className={`dark:bg-gray-900 dark:text-gray-50 ${poppins.className}`}
+                        className={`min-h-screen dark:bg-gray-900 dark:text-gray-50 ${poppins.className}`}
                     >
-                        <main className="flex flex-col items-center px-8 md:px-16">
+                        <main className="flex h-full w-full flex-col items-center px-8 md:px-16">
                             <NavBar />
                             <div className="py-40">{children}</div>
                         </main>
