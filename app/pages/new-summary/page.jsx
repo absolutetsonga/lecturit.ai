@@ -10,7 +10,7 @@ const newSummary = () => {
     let stream;
 
     const { theme } = useTheme();
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
     const [microphoneAccess, setMicrophoneAccess] = useState(false);
     const [isRecordingAudio, setIsRecordingAudio] = useState(false);
@@ -49,8 +49,6 @@ const newSummary = () => {
                 const formData = await handleDataAvailable(event);
                 const transcript = await getTranscript(formData);
                 const summary = await addSummary(transcript.text);
-
-                console.log(summary);
             });
         } catch (error) {
             console.error(
@@ -97,7 +95,7 @@ const newSummary = () => {
         }
     };
 
-    const addSummary = async (transcript) => {
+    const addSummary = async (transcript) => {        
         try {
             const responseBackend = await axios.post('/api/summary/new', {
                 userId: session?.user.id,
@@ -128,6 +126,8 @@ const newSummary = () => {
 
         setIsRecordingAudio((prev) => !prev);
     };
+
+    if (status === 'loading') return <> Loading </>;
     return (
         <div>
             <button onClick={handleRecordClick}>
