@@ -16,8 +16,7 @@ export const POST = async (req) => {
             openAIApiKey: process.env.OPENAI_API_KEY,
         });
 
-        const template =
-            `You are a summarizer and formatter that formats the text and makes it more concise. Summary: {summary}`;
+        const template = `You are a summarizer and formatter that formats the text and makes it more concise. Summary: {summary}`;
 
         const prompt = new PromptTemplate({
             template: template,

@@ -1,4 +1,3 @@
-import { connectToDb } from '@/utils/database';
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 
