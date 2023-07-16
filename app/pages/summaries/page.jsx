@@ -28,6 +28,17 @@ const summaries = () => {
         fetchPosts();
     }, [session]);
 
+    const sendToNotion = async (summary) => {
+        const url = '/api/notion/new';
+
+        const response = await axios.post(url, {
+            userId: session?.user.id,
+            summary: JSON.stringify(summary),
+        });
+
+        return response;
+    };
+
     const populateSummaries = summaries.map((element, index) => {
         return (
             <div key={`summary-${index}`}>
@@ -40,7 +51,10 @@ const summaries = () => {
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         {element.summary}
                     </p>
-                    <div className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <div
+                        onClick={() => sendToNotion(element.summary)}
+                        className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
                         Send to Notion
                         <svg
                             className="ml-2 h-3.5 w-3.5"
