@@ -3,7 +3,8 @@ import { connectToDb } from '@/utils/database';
 import Summary from '@/models/summary';
 
 import { OpenAI } from 'langchain/llms/openai';
-import { PromptTemplate } from 'langchain/prompts';
+import { loadSummarizationChain } from 'langchain/chains';
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 
 export const POST = async (req) => {
     const { summary, userId } = await req.json();
@@ -11,23 +12,29 @@ export const POST = async (req) => {
     try {
         await connectToDb();
 
-        const model = new OpenAI({
+        const llm = new OpenAI({
             temperature: 0.0,
             openAIApiKey: process.env.OPENAI_API_KEY,
         });
 
-        const template = `You are a summarizer and formatter that formats the text and makes it more concise. Summary: {summary}`;
-
-        const prompt = new PromptTemplate({
-            template: template,
-            inputVariables: ['summary'],
+        const textSplitter = new RecursiveCharacterTextSplitter({
+            chunkSize: 8000,
+            chunkOverlap: 1000,
         });
 
-        const formattedSummary = await prompt.format({ summary });
-        const result = await model.call(formattedSummary);
+        const docs = await textSplitter.createDocuments([summary]);
+
+        const summaryChain = loadSummarizationChain(llm, {
+            type: 'refine',
+            prompt: 'You are the AI Assistent that helps to summarize long lectures and podcasts! Your task is to write minimum 15 long summarized sentences about lecture.'
+        });
+
+        const result = await summaryChain.call({
+            input_documents: docs,
+        });
 
         const createdSummary = await Summary.create({
-            summary: result,
+            summary: result.output_text,
             user: userId,
         });
 
