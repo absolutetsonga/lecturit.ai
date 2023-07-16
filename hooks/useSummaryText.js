@@ -58,6 +58,8 @@ const useAudioRecording = () => {
                     type: 'audio/mp3',
                 });
 
+                console.log(audioFile.size / 1048576);
+
                 const formData = new FormData();
                 formData.append('file', audioFile);
                 formData.append('model', 'whisper-1');
@@ -90,11 +92,7 @@ const useAudioRecording = () => {
 
         const addSummary = async (transcript) => {
             try {
-                console.log({ userId: session?.user.id });
-
                 if (session && session.user && session.user.id) {
-                    console.log({ userId: session.user.id });
-
                     const summary = await axios.post('/api/summary/new', {
                         userId: session.user.id,
                         summary: JSON.stringify(transcript),

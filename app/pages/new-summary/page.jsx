@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { useTheme } from 'next-themes';
 import useAudioRecording from '@/hooks/useSummaryText';
 
 const newSummary = () => {
     const { theme } = useTheme();
+    const [selectedFile, setSelectedFile] = useState();
 
     const {
         microphoneAccess,
@@ -18,7 +20,7 @@ const newSummary = () => {
         audioRef,
 
         status,
-    } = useAudioRecording();
+    } = useAudioRecording(selectedFile);
 
     const handleRecordClick = () => {
         if (isRecordingAudio) {
@@ -88,6 +90,18 @@ const newSummary = () => {
 
                         <p>{transcribedText}</p>
                         <p>{summaryText}</p>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Already have downloaded mp3 file of the lecture?
+                            Insert it!
+                        </h3>
+
+                        <input
+                            type="file"
+                            onChange={(e) => setSelectedFile(e.target.files[0])}
+                        />
                     </div>
                 </>
             ) : (
