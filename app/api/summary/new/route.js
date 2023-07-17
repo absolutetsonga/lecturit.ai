@@ -3,8 +3,7 @@ import { connectToDb } from '@/utils/database';
 import Summary from '@/models/summary';
 
 import { OpenAI } from 'langchain/llms/openai';
-import { loadSummarizationChain } from 'langchain/chains';
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+import { PromptTemplate } from 'langchain/prompts';
 
 export const POST = async (req) => {
     const { summary, userId } = await req.json();
@@ -12,33 +11,65 @@ export const POST = async (req) => {
     try {
         await connectToDb();
 
-        const llm = new OpenAI({
-            temperature: 0.0,
-            openAIApiKey: process.env.OPENAI_API_KEY,
-        });
+        const sentences = summary.split('. ');
 
-        const textSplitter = new RecursiveCharacterTextSplitter({
-            chunkSize: 8000,
-            chunkOverlap: 1000,
-        });
+        const getStructuredSubarrays = (sentences) => {
+            let subarraysOfSentences = [];
+            let currentSubarray = [];
 
-        const docs = await textSplitter.createDocuments([summary]);
+            for (let i = 0; i <= sentences.length; i++) {
+                if (i !== 0 && i % 10 === 0) {
+                    currentSubarray.push(sentences[i]);
+                    subarraysOfSentences.push(currentSubarray.join('. '));
+                    currentSubarray = [];
+                } else {
+                    currentSubarray.push(sentences[i]);
+                }
+            }
 
-        const summaryChain = loadSummarizationChain(llm, {
-            type: 'refine',
-            prompt: 'You are the AI Assistent that helps to summarize long lectures and podcasts! Your task is to write minimum 15 long summarized sentences about lecture.'
-        });
+            return subarraysOfSentences;
+        };
 
-        const result = await summaryChain.call({
-            input_documents: docs,
-        });
+        const texts = getStructuredSubarrays(sentences);
 
-        const createdSummary = await Summary.create({
-            summary: result.output_text,
+        const summarizeText = async (text) => {
+            const llm = new OpenAI({
+                temperature: 0.0,
+                openAIApiKey: process.env.OPENAI_API_KEY,
+            });
+
+            const template =
+                'You are a summarizer and formatter that formats the text and makes it more concise. First of all, do not include {text}';
+
+            const prompt = new PromptTemplate({
+                template: template,
+                inputVariables: ['text'],
+            });
+
+            const formattedSummary = await prompt.format({ text: text });
+            const result = await llm.call(formattedSummary);
+
+            return result;
+        };
+
+        const summarizedTexts = [];
+
+        for (let i = 0; i < texts.length; i++) {
+            const text = texts[i];
+            const result = await summarizeText(text);
+
+            console.log({ text, result });
+            summarizedTexts.push(result);
+        }
+
+        const summarizedOverallText = summarizedTexts.join('. ');
+
+        await Summary.create({
+            summary: summarizedOverallText,
             user: userId,
         });
 
-        return new Response(JSON.stringify(createdSummary), {
+        return new Response(JSON.stringify(summarizedOverallText), {
             status: 201,
         });
     } catch (err) {
