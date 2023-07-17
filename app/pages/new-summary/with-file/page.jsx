@@ -11,8 +11,6 @@ const withFile = () => {
     const [summaryText, setSummaryText] = useState();
     const [file, setFile] = useState();
 
-    const inputFileRef = useRef();
-
     const handleFileChange = async (file) => {
         try {
             if (!file) return;
@@ -23,6 +21,8 @@ const withFile = () => {
 
             const transcriptedText = await getTranscript(formData);
             const summary = await addSummary(transcriptedText);
+
+            setSummaryText(summary);
 
             return summary;
         } catch (error) {
@@ -40,6 +40,7 @@ const withFile = () => {
             );
             const { text } = transcriptedText;
             setTranscribedText(text);
+
             return text;
         } catch (error) {
             console.error(
@@ -56,9 +57,9 @@ const withFile = () => {
                     summary: JSON.stringify(transcript),
                 });
 
-                setSummaryText(summary.data.summary);
+                console.log(summary.data);
 
-                return summaryText;
+                return summary.data;
             } else {
                 console.error(
                     'User ID is not available in the session object.',
@@ -110,7 +111,7 @@ const withFile = () => {
                             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                                 <span class="font-semibold">
                                     Click to upload
-                                </span>{' '}
+                                </span>
                                 or drag and drop
                             </p>
                             <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -137,8 +138,8 @@ const withFile = () => {
 
                 {/* <button onChange={handleFileChange}> Send </button> */}
 
-                <p>{transcribedText}</p>
-                <p>{summaryText}</p>
+                <p>Transcribed Text: {transcribedText}</p>
+                <p>Summary Text: {summaryText}</p>
             </div>
         </div>
     );
