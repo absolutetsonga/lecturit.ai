@@ -1,12 +1,9 @@
 import { connectToDb } from '@/utils/database';
 
-import { OpenAI } from 'langchain/llms/openai';
-import { PromptTemplate } from 'langchain/prompts';
-
 import Summary from '@/models/summary';
 
-import getStructuredSubarrays from '@/utils/getStructuredSubarrays';
-import summarizeText from '@/utils/summarizeText';
+import getStructuredSubarrays from '@/utils/new-summary/getStructuredSubarrays';
+import summarizeText from '@/utils/new-summary/summarizeText';
 
 export const POST = async (req) => {
     const { summary, userId } = await req.json();
@@ -20,19 +17,18 @@ export const POST = async (req) => {
 
         for (let i = 0; i < texts.length; i++) {
             const text = texts[i];
+
             const result = await summarizeText(text);
 
             summarizedTexts.push(result);
         }
 
-        const summarizedOverallText = summarizedTexts.join('. ');
-
         await Summary.create({
-            summary: summarizedOverallText,
             user: userId,
+            summary: summarizedTexts.join(''),
         });
 
-        return new Response(JSON.stringify(summarizedOverallText), {
+        return new Response(JSON.stringify(summarizedTexts), {
             status: 201,
         });
     } catch (err) {
