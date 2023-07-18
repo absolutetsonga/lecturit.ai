@@ -20,11 +20,13 @@ const withFile = () => {
             formData.append('model', 'whisper-1');
 
             const transcriptedText = await getTranscript(formData);
-            const summary = await addSummary(transcriptedText);
+            const summaryTexts = await addSummary(transcriptedText);
 
-            setSummaryText(summary);
+            setSummaryText(summaryTexts.join(''));
 
-            return summary;
+            const response = await sendToNotion(summaryTexts);
+
+            return response;
         } catch (error) {
             console.error(
                 `Error while trying to handle available data from the media recorder. Error message: ${error.message}`,
@@ -44,7 +46,7 @@ const withFile = () => {
             return text;
         } catch (error) {
             console.error(
-                `Error while trying to get the response from Whisper. Error message: ${error.message}`,
+                `Error while trying to send the request to Whisper. Error message: ${error.message}`,
             );
         }
     };
@@ -57,8 +59,6 @@ const withFile = () => {
                     summary: JSON.stringify(transcript),
                 });
 
-                console.log(summary.data);
-
                 return summary.data;
             } else {
                 console.error(
@@ -68,6 +68,22 @@ const withFile = () => {
         } catch (error) {
             console.error(
                 `Error while trying to add the summary. Error message: ${error.message}`,
+            );
+        }
+    };
+
+    const sendToNotion = async (formattedResults) => {
+        try {
+            const response = await axios.post('/api/notion/new', {
+                formattedResults: JSON.stringify(formattedResults),
+            });
+
+            console.log({ sendToNotionFunctionResponse: response });
+
+            return response;
+        } catch (error) {
+            console.error(
+                `Error while trying to send request to the Notion: ${error.message}`,
             );
         }
     };
