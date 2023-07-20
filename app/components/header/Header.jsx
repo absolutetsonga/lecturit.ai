@@ -7,8 +7,8 @@ import clsx from 'clsx';
 
 import { Button } from '@/app/components/Button';
 import { Container } from '@/app/components/Container';
-import { NavLink } from '@/app/components/NavLink';
-import ThemeSwitcher from './navbar/ThemeSwitcher';
+import { NavLink } from '@/app/components/header/NavLink';
+import ThemeSwitcher from './ThemeSwitcher';
 
 function MobileNavLink({ href, children }) {
     return (
@@ -97,7 +97,7 @@ function MobileNavigation() {
 
 export function Header() {
     return (
-        <header className="bg-gray-50 dark:bg-slate-950 py-10">
+        <header className="bg-gray-50 py-10 dark:bg-slate-950">
             <Container>
                 <nav className="relative z-50 flex justify-between">
                     <div className="flex items-center md:gap-x-12">

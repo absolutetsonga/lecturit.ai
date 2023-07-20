@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { AuthLayout } from '@/app/components/AuthLayout';
 import { Button } from '@/app/components/Button';
-import { SelectField, TextField } from '@/app/components/Fields';
+import { SelectField, TextField } from '@/app/components/main/Fields';
 
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import { useState, useEffect } from 'react';

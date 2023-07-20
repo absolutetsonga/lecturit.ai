@@ -3,7 +3,7 @@ import './globals.css';
 import AuthProvider from './components/providers/AuthProvider';
 import ThemeSwitchProvider from './components/providers/ThemeSwitchProvider';
 
-import { LayoutProvider } from './components/LayoutProvider';
+import { LayoutProvider } from './components/providers/LayoutProvider';
 
 export const metadata = {
     title: 'Summarizer of your School Lectures',

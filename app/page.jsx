@@ -1,7 +1,7 @@
-import { Hero } from '@/app/components/Hero';
-import { PrimaryFeatures } from '@/app/components/PrimaryFeatures';
-import { SecondaryFeatures } from './components/SecondaryFeatures';
-import { CTA } from './components/CTA';
+import { Hero } from '@/app/components/main/Hero';
+import { PrimaryFeatures } from '@/app/components/main/PrimaryFeatures';
+import { SecondaryFeatures } from './components/main/SecondaryFeatures';
+import { CTA } from './components/main/CTA';
 
 export default function Home() {
     return (

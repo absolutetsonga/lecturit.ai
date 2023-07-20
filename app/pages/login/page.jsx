@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 import { AuthLayout } from '@/app/components/AuthLayout';
 import { Button } from '@/app/components/Button';
-import { TextField } from '@/app/components/Fields';
+import { TextField } from '@/app/components/main/Fields';
 
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 

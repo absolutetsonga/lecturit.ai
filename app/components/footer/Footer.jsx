@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Container } from '@/app/components/Container';
-import { NavLink } from '@/app/components/NavLink';
+import { NavLink } from '@/app/components/header/NavLink';
 
 export function Footer() {
     return (
