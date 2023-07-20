@@ -1,11 +1,9 @@
-import { Poppins } from 'next/font/google';
 import './globals.css';
 
 import AuthProvider from './components/providers/AuthProvider';
 import ThemeSwitchProvider from './components/providers/ThemeSwitchProvider';
 import { Header } from './components/Header';
-
-const poppins = Poppins({ weight: '400', subsets: ['latin'] });
+import { Footer } from './components/Footer';
 
 export const metadata = {
     title: 'Summarizer of your School Lectures',
@@ -22,6 +20,7 @@ export default function RootLayout({ children }) {
                         <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
                             {children}
                         </main>
+                        <Footer />
                     </body>
                 </AuthProvider>
             </ThemeSwitchProvider>
