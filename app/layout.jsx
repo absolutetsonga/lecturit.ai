@@ -14,13 +14,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" className="min-h-screen">
             <ThemeSwitchProvider>
                 <AuthProvider>
                     <body>
                         <Header />
-                        <main>
-                            <div className="py-40">{children}</div>
+                        <main className="min-h-screen">
+                            <div className="min-h-screen">{children}</div>
                         </main>
                     </body>
                 </AuthProvider>
