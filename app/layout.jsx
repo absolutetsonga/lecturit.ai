@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
                     <body>
                         <Header />
                         <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-                            <div className="min-h-screen">{children}</div>
+                            {children}
                         </main>
                     </body>
                 </AuthProvider>
