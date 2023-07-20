@@ -1,9 +1,9 @@
 import { Poppins } from 'next/font/google';
-import NavBar from './components/navbar/NavBar';
 import './globals.css';
 
 import AuthProvider from './components/providers/AuthProvider';
 import ThemeSwitchProvider from './components/providers/ThemeSwitchProvider';
+import { Header } from './components/Header';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin'] });
 
@@ -17,11 +17,9 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <ThemeSwitchProvider>
                 <AuthProvider>
-                    <body
-                        className={`min-h-screen dark:bg-gray-900 dark:text-gray-50 ${poppins.className}`}
-                    >
-                        <main className="flex h-full w-full flex-col items-center px-8 md:px-16">
-                            <NavBar />
+                    <body>
+                        <Header />
+                        <main>
                             <div className="py-40">{children}</div>
                         </main>
                     </body>
