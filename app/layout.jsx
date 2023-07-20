@@ -2,8 +2,8 @@ import './globals.css';
 
 import AuthProvider from './components/providers/AuthProvider';
 import ThemeSwitchProvider from './components/providers/ThemeSwitchProvider';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
+
+import { LayoutProvider } from './components/LayoutProvider';
 
 export const metadata = {
     title: 'Summarizer of your School Lectures',
@@ -16,11 +16,7 @@ export default function RootLayout({ children }) {
             <ThemeSwitchProvider>
                 <AuthProvider>
                     <body>
-                        <Header />
-                        <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-                            {children}
-                        </main>
-                        <Footer />
+                        <LayoutProvider>{children}</LayoutProvider>
                     </body>
                 </AuthProvider>
             </ThemeSwitchProvider>
