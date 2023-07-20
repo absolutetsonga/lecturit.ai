@@ -36,7 +36,7 @@ export default function Login() {
                         </p>
                     </div>
                 </div>
-                <form action="#" className="mt-10 grid grid-cols-1 gap-y-8">
+                <form action="#" className="bg-gray-50 dark:bg-gray-950 bgmt-10 grid grid-cols-1 gap-y-8">
                     <TextField
                         label="Email address"
                         id="email"
