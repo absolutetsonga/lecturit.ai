@@ -21,14 +21,14 @@ export function AuthLayout({ children }) {
                 <div className="hidden sm:contents lg:relative lg:block lg:flex-1">
                     {theme === 'dark' ? (
                         <Image
-                            className="absolute inset-0 h-full w-full object-cover"
+                            className="absolute inset-0 top-0 bottom-0 h-full w-full object-cover"
                             src={backgroundImageDark}
                             alt=""
                             unoptimized
                         />
                     ) : (
                         <Image
-                            className="absolute inset-0 h-full w-full object-cover"
+                            className="absolute inset-0 h-full w-full object-fill"
                             src={backgroundImageLight}
                             alt=""
                             unoptimized
