@@ -3,7 +3,7 @@ import { Container } from '@/app/components/Container';
 
 export function Hero() {
     return (
-        <Container className="pb-16 pt-20 text-center lg:pt-32">
+        <Container className="flex min-h-[90vh] flex-col items-center justify-center pb-16 pt-20 text-center lg:pt-32">
             <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight sm:text-7xl">
                 Accounting{' '}
                 <span className="relative whitespace-nowrap text-blue-600 dark:text-violet-600">
