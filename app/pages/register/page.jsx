@@ -1,11 +1,33 @@
+'use client';
+
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { AuthLayout } from '@/app/components/AuthLayout';
 import { Button } from '@/app/components/Button';
 import { SelectField, TextField } from '@/app/components/Fields';
 
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+
+import google from '../../images/logos/google.svg';
+
 export default function Register() {
+    const { data: session } = useSession();
+
+    const [providers, setProviders] = useState(null);
+
+    useEffect(() => {
+        const getAndSetProviders = async () => {
+            const response = await getProviders();
+
+            setProviders(response);
+        };
+
+        getAndSetProviders();
+    }, []);
+
     return (
         <>
             <Head>
@@ -23,7 +45,7 @@ export default function Register() {
                         <p className="mt-2 text-sm ">
                             Already registered?{' '}
                             <Link
-                                href="/login"
+                                href="/pages/login"
                                 className="font-medium text-blue-600 hover:underline dark:text-violet-400"
                             >
                                 Sign in
@@ -94,6 +116,25 @@ export default function Register() {
                         </Button>
                     </div>
                 </form>
+                <div className="pointer mt-10 flex items-center gap-4">
+                    {providers &&
+                        Object.values(providers).map((provider) => (
+                            <button
+                                type="button"
+                                class="dark:focus:ring-[#4285F4]/55 mb-2 mr-2 inline-flex items-center gap-4 rounded-lg bg-blue-600 dark:bg-violet-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
+                            >
+                                <Image
+                                    onClick={() => signIn(provider.id)}
+                                    key={provider.name}
+                                    src={google}
+                                    width={35}
+                                    height={35}
+                                    className='bg-white p-0.5 rounded-full'
+                                />
+                                Sign in with Google
+                            </button>
+                        ))}
+                </div>
             </AuthLayout>
         </>
     );
