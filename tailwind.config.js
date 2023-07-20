@@ -25,6 +25,11 @@ module.exports = {
             '9xl': ['8rem', { lineHeight: '1' }],
         },
         extend: {
+            linearGradientColors: {
+                'dark-auth': ['#6E6F9D', '#CE83A1', '#737A9F'],
+                'light-auth': ['#357AEF', '#9791F1', '#4AAFF7'],
+            },
+
             backgroundImage: {
                 'add-white': "url('/add_white.svg')",
                 'add-dark': "url('/add_dark.svg')",

@@ -13,22 +13,26 @@ export default function Login() {
             </Head>
             <AuthLayout>
                 <div className="flex flex-col">
-                    <Link href="/" aria-label="Home">
+                    <Link
+                        href="/"
+                        aria-label="Home"
+                        className="from-light-auth via-light-auth to-light-auth bg-gradient-to-r text-xl"
+                    >
                         lecturit.ai
                     </Link>
                     <div className="mt-20">
-                        <h2 className="text-lg font-semibold text-gray-900">
+                        <h2 className="text-lg font-semibold ">
                             Sign in to your account
                         </h2>
-                        <p className="mt-2 text-sm text-gray-700">
+                        <p className="mt-2 text-sm ">
                             Don’t have an account?{' '}
                             <Link
                                 href="/register"
-                                className="font-medium text-blue-600 hover:underline"
+                                className="font-medium text-blue-600 hover:underline dark:text-violet-400"
                             >
-                                Sign up
-                            </Link>{' '}
-                            for a free trial.
+                                Sign up!
+                            </Link>
+                            {/* for a free trial. */}
                         </p>
                     </div>
                 </div>
