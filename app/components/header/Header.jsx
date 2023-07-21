@@ -15,7 +15,6 @@ import { Dropdown } from '@/app/components/header/Dropdown';
 
 import ThemeSwitcher from './ThemeSwitcher';
 
-import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 function MobileNavLink({ href, children }) {
@@ -106,8 +105,6 @@ function MobileNavigation() {
 export function Header() {
     const { data: session } = useSession();
 
-    const [toggle, setToggle] = useState();
-
     return (
         <header className="bg-gray-50 py-10 dark:bg-slate-950">
             <Container>
@@ -125,9 +122,9 @@ export function Header() {
 
                     <div className="flex items-center gap-x-5 md:gap-x-8">
                         {session ? (
-                            <Dropdown/>
+                            <Dropdown />
                         ) : (
-                            <div>
+                            <div className="flex items-center gap-x-5 md:gap-x-8">
                                 <div className="hidden md:block">
                                     <NavLink href="/pages/login">
                                         Sign in

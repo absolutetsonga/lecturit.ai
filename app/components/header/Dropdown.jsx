@@ -31,7 +31,7 @@ export function Dropdown() {
             <div className="relative flex flex-col">
                 <Menu as="div" className="relative inline-block text-left">
                     <div>
-                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
                             <Image
                                 width={40}
                                 height={40}
@@ -63,7 +63,7 @@ export function Dropdown() {
                                 <Menu.Item>
                                     {({ active }) => (
                                         <a
-                                            href="#"
+                                            href="/pages/new-summary"
                                             className={classNames(
                                                 active
                                                     ? 'bg-gray-100 text-gray-900'
@@ -71,7 +71,7 @@ export function Dropdown() {
                                                 'block px-4 py-2 text-sm',
                                             )}
                                         >
-                                            Account settings
+                                            New Lecture
                                         </a>
                                     )}
                                 </Menu.Item>
@@ -86,7 +86,7 @@ export function Dropdown() {
                                                 'block px-4 py-2 text-sm',
                                             )}
                                         >
-                                            Support
+                                            Visit Profile
                                         </a>
                                     )}
                                 </Menu.Item>
@@ -101,7 +101,7 @@ export function Dropdown() {
                                                 'block px-4 py-2 text-sm',
                                             )}
                                         >
-                                            License
+                                            Get All Summaries
                                         </a>
                                     )}
                                 </Menu.Item>
@@ -114,7 +114,7 @@ export function Dropdown() {
                                                 type="submit"
                                                 className={classNames(
                                                     active
-                                                        ? 'bg-gray-100 text-gray-900'
+                                                        ? 'bg-gray-50 text-red-500'
                                                         : 'text-gray-700',
                                                     'block w-full px-4 py-2 text-left text-sm',
                                                 )}
