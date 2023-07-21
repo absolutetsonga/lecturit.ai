@@ -24,7 +24,7 @@ export function Hero() {
                 the opposite trade-off, and hope you don’t get audited.
             </p>
             <div className="mt-10 flex justify-center gap-x-6">
-                <Button href="/register">Get 6 months free</Button>
+                <Button href="/pages/register">Get 6 months free</Button>
                 <Button
                     href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                     variant="outline"

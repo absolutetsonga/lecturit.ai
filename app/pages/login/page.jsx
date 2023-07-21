@@ -5,19 +5,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { AuthLayout } from '@/app/components/AuthLayout';
 import { Button } from '@/app/components/Button';
 import { TextField } from '@/app/components/main/Fields';
 
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signIn, useSession, getProviders } from 'next-auth/react';
 
 import google from '../../images/logos/google.svg';
 
 export default function Login() {
+    const router = useRouter();
+
     const { data: session } = useSession();
 
     const [providers, setProviders] = useState(null);
+    const [status, setStatus] = useState();
 
     useEffect(() => {
         const getAndSetProviders = async () => {
@@ -26,6 +30,7 @@ export default function Login() {
             setProviders(response);
         };
 
+        const checkStatus = () => (status === '200' ? router.push('/') : '');
         getAndSetProviders();
     }, []);
 
@@ -97,17 +102,21 @@ export default function Login() {
                         Object.values(providers).map((provider) => (
                             <button
                                 type="button"
-                                class="dark:focus:ring-[#4285F4]/55 mb-2 mr-2 inline-flex items-center gap-4 rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:bg-violet-600"
+                                className="dark:focus:ring-[#4285F4]/55 mb-2 mr-2 inline-flex items-center gap-4 rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:bg-violet-600"
+                                onClick={() => {
+                                    signIn(provider.id);
+                                    setStatus(200);
+                                }}
                             >
                                 <Image
-                                    onClick={() => signIn(provider.id)}
                                     key={provider.name}
                                     src={google}
                                     width={35}
                                     height={35}
                                     className="rounded-full bg-white p-0.5"
+                                    alt={'google'}
                                 />
-                                Sign up with Google
+                                Sign in with Google
                             </button>
                         ))}
                 </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 const withFile = () => {
@@ -125,7 +125,7 @@ const withFile = () => {
                                 />
                             </svg>
                             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-semibold">
+                                <span className="font-semibold">
                                     Click to upload
                                 </span>
                                 or drag and drop
