@@ -1,14 +1,22 @@
 'use client';
 
-import { Fragment } from 'react';
 import Link from 'next/link';
-import { Popover, Transition } from '@headlessui/react';
+import Image from 'next/image';
+
 import clsx from 'clsx';
+
+import { Fragment } from 'react';
+import { Popover, Transition } from '@headlessui/react';
 
 import { Button } from '@/app/components/Button';
 import { Container } from '@/app/components/Container';
 import { NavLink } from '@/app/components/header/NavLink';
+import { Dropdown } from '@/app/components/header/Dropdown';
+
 import ThemeSwitcher from './ThemeSwitcher';
+
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 function MobileNavLink({ href, children }) {
     return (
@@ -96,6 +104,10 @@ function MobileNavigation() {
 }
 
 export function Header() {
+    const { data: session } = useSession();
+
+    const [toggle, setToggle] = useState();
+
     return (
         <header className="bg-gray-50 py-10 dark:bg-slate-950">
             <Container>
@@ -112,15 +124,26 @@ export function Header() {
                     </div>
 
                     <div className="flex items-center gap-x-5 md:gap-x-8">
-                        <div className="hidden md:block">
-                            <NavLink href="/pages/login">Sign in</NavLink>
-                        </div>
-                        <Button href="/pages/register" color="blue">
-                            <span>
-                                Get started{' '}
-                                <span className="hidden lg:inline">today</span>
-                            </span>
-                        </Button>
+                        {session ? (
+                            <Dropdown/>
+                        ) : (
+                            <div>
+                                <div className="hidden md:block">
+                                    <NavLink href="/pages/login">
+                                        Sign in
+                                    </NavLink>
+                                </div>
+                                <Button href="/pages/register" color="blue">
+                                    <span>
+                                        Get started{' '}
+                                        <span className="hidden lg:inline">
+                                            today
+                                        </span>
+                                    </span>
+                                </Button>
+                            </div>
+                        )}
+
                         <div className="-mr-1 md:hidden">
                             <MobileNavigation />
                         </div>
