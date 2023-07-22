@@ -1,32 +1,26 @@
 import { Fragment, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 import { ToggleButton } from './ToggleButton';
 import { MenuList } from './MenuList';
 
 import { TeamsList } from './TeamsList';
 
-export const Sidebar = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+import { useSession } from 'next-auth/react';
+
+export const Sidebar = ({ toggle, setToggle }) => {
+    const { data: session } = useSession();
+    // const [sidebarOpen, setSidebarOpen] = useState(true);
 
     return (
-        <div >
-            <Transition.Root show={true} as={Fragment}>
-                <Dialog as="div" onClose={setSidebarOpen}>
-                    <ToggleButton
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen}
-                    />
-                </Dialog>
-            </Transition.Root>
-
-            <Transition.Root show={sidebarOpen} as={Fragment}>
+        <div>
+            <Transition.Root show={toggle} as={Fragment}>
                 <Dialog
                     as="div"
                     className="relative z-50"
-                    onClose={setSidebarOpen}
+                    onClose={setToggle}
                 >
                     <Transition.Child
                         as={Fragment}
@@ -69,7 +63,7 @@ export const Sidebar = () => {
                                                     role="list"
                                                     className="-mx-2 space-y-1"
                                                 >
-                                                    <MenuList/>
+                                                    <MenuList />
                                                 </ul>
                                             </li>
                                             <li>
@@ -80,7 +74,7 @@ export const Sidebar = () => {
                                                     role="list"
                                                     className="-mx-2 mt-2 space-y-1"
                                                 >
-                                                    <TeamsList/>
+                                                    <TeamsList />
                                                 </ul>
                                             </li>
                                             <li className="mt-auto">
