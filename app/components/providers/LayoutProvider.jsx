@@ -2,29 +2,29 @@
 
 import { Header } from '../header/Header';
 import { Footer } from '../footer/Footer';
+import { Sidebar } from '../sidebar/Sidebar';
 
 import { usePathname } from 'next/navigation';
 
 export const LayoutProvider = ({ children }) => {
     const pathname = usePathname();
 
+    const satisfiedPathsForHeaderAndFooter = ['/'];
+    const unsatisfiedPathsForSidebar = ['/', '/pages/register', '/pages/login'];
+
     return (
         <>
-            {pathname === '/pages/register' || pathname === '/pages/login' ? (
-                ''
-            ) : (
-                <Header />
-            )}
-
             <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+                {satisfiedPathsForHeaderAndFooter.includes(pathname) && (
+                    <Header />
+                )}
+                {!unsatisfiedPathsForSidebar.includes(pathname) && <Sidebar />}
                 {children}
-            </main>
 
-            {pathname === '/pages/register' || pathname === '/pages/login' ? (
-                ''
-            ) : (
-                <Footer />
-            )}
+                {satisfiedPathsForHeaderAndFooter.includes(pathname) && (
+                    <Footer />
+                )}
+            </main>
         </>
     );
 };
