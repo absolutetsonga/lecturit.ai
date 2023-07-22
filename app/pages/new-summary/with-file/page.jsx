@@ -9,6 +9,8 @@ import { SummaryText } from '@/app/components/SummaryText';
 import { TranscribeText } from '@/app/components/TranscribeText';
 import { DNDInput } from '@/app/components/DNDInput';
 
+import { getTranscript, addSummary, sendToNotion } from '@/utils/APIHandlers';
+
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 const withFile = () => {
@@ -34,7 +36,7 @@ const withFile = () => {
 
             setTranscribeText(transcriptedText);
 
-            const summaryTexts = await addSummary(transcriptedText);
+            const summaryTexts = await addSummary(transcriptedText, session);
 
             setSummaryText(summaryTexts.join(''));
 
@@ -44,57 +46,6 @@ const withFile = () => {
         } catch (error) {
             console.error(
                 `Error while trying to handle available data. Error message: ${error.message}`,
-            );
-        }
-    };
-
-    const getTranscript = async (formData) => {
-        try {
-            const { data: transcriptedText } = await axios.post(
-                '/api/whisper',
-                formData,
-            );
-            const { text } = transcriptedText;
-
-            return text;
-        } catch (error) {
-            console.error(
-                `Error while trying to send the request to Whisper. Error message: ${error.message}`,
-            );
-        }
-    };
-
-    const addSummary = async (transcript) => {
-        try {
-            if (session && session.user && session.user.id) {
-                const summary = await axios.post('/api/summary/new', {
-                    userId: session.user.id,
-                    summary: JSON.stringify(transcript),
-                });
-
-                return summary.data;
-            } else {
-                console.error(
-                    'User ID is not available in the session object.',
-                );
-            }
-        } catch (error) {
-            console.error(
-                `Error while trying to add the summary. Error message: ${error.message}`,
-            );
-        }
-    };
-
-    const sendToNotion = async (formattedResults) => {
-        try {
-            const response = await axios.post('/api/notion/new', {
-                formattedResults: JSON.stringify(formattedResults),
-            });
-
-            return response;
-        } catch (error) {
-            console.error(
-                `Error while trying to send request to the Notion: ${error.message}`,
             );
         }
     };
