@@ -64,6 +64,11 @@ const newSummary = () => {
                             />
                         )}
                     </button>
+
+                    <img
+                        src="https://mail.google.com/mail/u/3?ui=2&ik=f1ade9bc7f&attid=0.1&permmsgid=msg-f:1772027900006429905&th=189781fc87f6f4d1&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ-9WJaywWIoJ6oxJleFUZn_tMt2s46ebnW6b01DUCOsHE33aFwjzEB6lgvli6YYAyfmQi4h8PegPudgtfw4hWLCberfcQUtmUQWhvC_8pXWOnU9m45R9m77uZo&disp=emb"
+                        alt=""
+                    />
                     {recordedAudio && (
                         <div>
                             <p> Recorded Audio: </p>

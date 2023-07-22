@@ -1,15 +1,26 @@
 'use client';
 
 import axios from 'axios';
+
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+
+import { SummaryText } from '@/app/components/SummaryText';
+import { TranscribeText } from '@/app/components/TranscribeText';
+import { DNDInput } from '@/app/components/DNDInput';
+
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 const withFile = () => {
     const { data: session, status } = useSession();
 
-    const [transcribedText, setTranscribedText] = useState();
+    const [transcribeText, setTranscribeText] = useState();
     const [summaryText, setSummaryText] = useState();
+
     const [file, setFile] = useState();
+
+    const [toggleFirst, setToggleFirst] = useState();
+    const [toggleSecond, setToggleSecond] = useState();
 
     const handleFileChange = async (file) => {
         try {
@@ -20,6 +31,9 @@ const withFile = () => {
             formData.append('model', 'whisper-1');
 
             const transcriptedText = await getTranscript(formData);
+
+            setTranscribeText(transcriptedText);
+
             const summaryTexts = await addSummary(transcriptedText);
 
             setSummaryText(summaryTexts.join(''));
@@ -29,7 +43,7 @@ const withFile = () => {
             return response;
         } catch (error) {
             console.error(
-                `Error while trying to handle available data from the media recorder. Error message: ${error.message}`,
+                `Error while trying to handle available data. Error message: ${error.message}`,
             );
         }
     };
@@ -41,7 +55,6 @@ const withFile = () => {
                 formData,
             );
             const { text } = transcriptedText;
-            setTranscribedText(text);
 
             return text;
         } catch (error) {
@@ -78,8 +91,6 @@ const withFile = () => {
                 formattedResults: JSON.stringify(formattedResults),
             });
 
-            console.log({ sendToNotionFunctionResponse: response });
-
             return response;
         } catch (error) {
             console.error(
@@ -91,153 +102,70 @@ const withFile = () => {
     if (status === 'loading') return <> Loading </>;
 
     return (
-        <div className="z-20 flex min-h-[100vh] min-w-[100%] max-w-5xl items-center justify-center">
-            <div className="flex flex-col gap-8">
-                <h1 className="text-2xl font-bold">
+        <div className="flex min-h-[100vh] min-w-[100%] max-w-5xl items-center justify-center py-20">
+            <div className="flex flex-col items-center gap-8 md:gap-4">
+                <h1 className="px-7 font-bold sm:text-xl md:text-2xl">
                     Already have downloaded mp3 file of the lecture? Insert it!
                 </h1>
 
-                <div className="flex w-full items-center justify-center">
-                    <label
-                        for="dropzone-file"
-                        className={`${
-                            file
-                                ? 'hidden'
-                                : 'dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600'
-                        }`}
-                    >
-                        <div
-                            className={`flex flex-col items-center justify-center pb-6 pt-5`}
-                        >
-                            <svg
-                                className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 20 16"
+                <DNDInput
+                    file={file}
+                    setFile={setFile}
+                    handleFileChange={handleFileChange}
+                />
+
+                <div className="flex w-[90%] flex-col">
+                    <div id="accordion-collapse" data-accordion="collapse">
+                        <h2 id="accordion-collapse-heading-1">
+                            <button
+                                type="button"
+                                className="flex w-full items-center justify-between rounded-t-xl border border-b-0 border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
+                                data-accordion-target="#accordion-collapse-body-1"
+                                aria-expanded="true"
+                                aria-controls="accordion-collapse-body-1"
+                                onClick={() => setToggleFirst((prev) => !prev)}
                             >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                />
-                            </svg>
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-semibold">
-                                    Click to upload
-                                </span>
-                                or drag and drop
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                                MP3, MP4, MPEG, MPGA, M4A, WAV, and WEBM
-                            </p>
-                        </div>
-                    </label>
-                    <input
-                        id="dropzone-file"
-                        type="file"
-                        className={`${
-                            file
-                                ? 'block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-lg text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400'
-                                : 'hidden'
-                        }`}
-                        onChange={(e) => {
-                            handleFileChange(e.target.files[0]);
-                            setFile(e.target.files[0]);
-                        }}
-                    />
-                </div>
-
-                <div className="flex flex-col gap-4">
-                    <h3>Transcribed Text:</h3>
-
-                    {transcribedText ? (
-                        transcribedText
-                    ) : (
+                                <span>Transcribe Text</span>
+                                {toggleFirst ? (
+                                    <ChevronUpIcon className="h-10 w-10" />
+                                ) : (
+                                    <ChevronDownIcon className="h-10 w-10" />
+                                )}
+                            </button>
+                        </h2>
                         <div
-                            role="status"
-                            class="max-w-lg animate-pulse space-y-2.5"
+                            className={`border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900 ${
+                                toggleFirst ? 'block' : 'hidden'
+                            }`}
                         >
-                            <div className="flex w-full items-center space-x-2">
-                                <div className="h-2.5 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[480px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[400px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[480px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[440px] items-center space-x-2">
-                                <div className="h-2.5 w-32 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <div className="flex w-full max-w-[360px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <span className="sr-only">Loading...</span>
+                            <TranscribeText transcribeText={transcribeText} />
                         </div>
-                    )}
-                </div>
 
-                <div className="flex flex-col gap-4">
-                    <h3>Summary Text:</h3>
-
-                    {summaryText ? (
-                        summaryText
-                    ) : (
+                        <h2 id="accordion-collapse-heading-1">
+                            <button
+                                type="button"
+                                className="flex w-full items-center justify-between border border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
+                                data-accordion-target="#accordion-collapse-body-1"
+                                aria-expanded="true"
+                                aria-controls="accordion-collapse-body-1"
+                                onClick={() => setToggleSecond((prev) => !prev)}
+                            >
+                                <span>Summary Text</span>
+                                {toggleSecond ? (
+                                    <ChevronUpIcon className="h-10 w-10" />
+                                ) : (
+                                    <ChevronDownIcon className="h-10 w-10" />
+                                )}
+                            </button>
+                        </h2>
                         <div
-                            role="status"
-                            class="max-w-lg animate-pulse space-y-2.5"
+                            className={`border border-t-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900 ${
+                                toggleSecond ? 'block' : 'hidden'
+                            }`}
                         >
-                            <div className="flex w-full items-center space-x-2">
-                                <div className="h-2.5 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[480px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[400px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[480px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <div className="flex w-full max-w-[440px] items-center space-x-2">
-                                <div className="h-2.5 w-32 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <div className="flex w-full max-w-[360px] items-center space-x-2">
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                            </div>
-                            <span className="sr-only">Loading...</span>
+                            <SummaryText summaryText={summaryText} />
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>
