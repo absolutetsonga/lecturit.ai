@@ -91,11 +91,11 @@ const withFile = () => {
     if (status === 'loading') return <> Loading </>;
 
     return (
-        <div>
-            <div>
-                <h3>
+        <div className="z-20 flex min-h-[100vh] min-w-[100%] max-w-5xl items-center justify-center">
+            <div className="flex flex-col gap-8">
+                <h1 className="text-2xl font-bold">
                     Already have downloaded mp3 file of the lecture? Insert it!
-                </h3>
+                </h1>
 
                 <div className="flex w-full items-center justify-center">
                     <label
@@ -125,7 +125,7 @@ const withFile = () => {
                                 />
                             </svg>
                             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span className="font-semibold">
+                                <span class="font-semibold">
                                     Click to upload
                                 </span>
                                 or drag and drop
@@ -150,12 +150,95 @@ const withFile = () => {
                     />
                 </div>
 
-                {/* <input type="file" /> */}
+                <div className="flex flex-col gap-4">
+                    <h3>Transcribed Text:</h3>
 
-                {/* <button onChange={handleFileChange}> Send </button> */}
+                    {transcribedText ? (
+                        transcribedText
+                    ) : (
+                        <div
+                            role="status"
+                            class="max-w-lg animate-pulse space-y-2.5"
+                        >
+                            <div className="flex w-full items-center space-x-2">
+                                <div className="h-2.5 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[480px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[400px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[480px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[440px] items-center space-x-2">
+                                <div className="h-2.5 w-32 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                            </div>
+                            <div className="flex w-full max-w-[360px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    )}
+                </div>
 
-                <p>Transcribed Text: {transcribedText}</p>
-                <p>Summary Text: {summaryText}</p>
+                <div className="flex flex-col gap-4">
+                    <h3>Summary Text:</h3>
+
+                    {summaryText ? (
+                        summaryText
+                    ) : (
+                        <div
+                            role="status"
+                            class="max-w-lg animate-pulse space-y-2.5"
+                        >
+                            <div className="flex w-full items-center space-x-2">
+                                <div className="h-2.5 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[480px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[400px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[480px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <div className="flex w-full max-w-[440px] items-center space-x-2">
+                                <div className="h-2.5 w-32 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                            </div>
+                            <div className="flex w-full max-w-[360px] items-center space-x-2">
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                                <div className="h-2.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                                <div className="h-2.5 w-full rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                            </div>
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
