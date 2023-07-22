@@ -6,7 +6,7 @@ export const SummaryText = ({ summaryText }) => {
             ) : (
                 <div
                     role="status"
-                    class="flex w-full animate-pulse flex-col space-y-2.5"
+                    className="flex w-full animate-pulse flex-col space-y-2.5"
                 >
                     <div className="flex w-full items-center space-x-2">
                         <div className="h-2.5 w-2/4 rounded-full bg-gray-300 dark:bg-gray-600"></div>
