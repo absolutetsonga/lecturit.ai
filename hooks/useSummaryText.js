@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
+
+import { getTranscript, addSummary, sendToNotion } from '@/utils/APIHandlers';
 
 const useAudioRecording = () => {
     const { data: session, status } = useSession();
@@ -65,50 +66,19 @@ const useAudioRecording = () => {
                 formData.append('model', 'whisper-1');
 
                 const transcriptedText = await getTranscript(formData);
-                const summary = await addSummary(transcriptedText);
-                return summary;
+
+                setTranscribedText(transcriptedText);
+
+                const summaryTexts = await addSummary(transcriptedText, session);
+
+                setSummaryText(summaryTexts.join(''));
+
+                const response = sendToNotion(summaryTexts);
+                
+                return response;
             } catch (error) {
                 console.error(
                     `Error while trying to handle available data from the media recorder. Error message: ${error.message}`,
-                );
-            }
-        };
-
-        const getTranscript = async (formData) => {
-            try {
-                const { data: transcriptedText } = await axios.post(
-                    '/api/whisper',
-                    formData,
-                );
-                const { text } = transcriptedText;
-                setTranscribedText(text);
-                return text;
-            } catch (error) {
-                console.error(
-                    `Error while trying to get the response from Whisper. Error message: ${error.message}`,
-                );
-            }
-        };
-
-        const addSummary = async (transcript) => {
-            try {
-                if (session && session.user && session.user.id) {
-                    const summary = await axios.post('/api/summary/new', {
-                        userId: session.user.id,
-                        summary: JSON.stringify(transcript),
-                    });
-
-                    setSummaryText(summary.data.summary);
-
-                    return summaryText;
-                } else {
-                    console.error(
-                        'User ID is not available in the session object.',
-                    );
-                }
-            } catch (error) {
-                console.error(
-                    `Error while trying to add the summary. Error message: ${error.message}`,
                 );
             }
         };
