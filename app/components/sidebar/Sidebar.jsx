@@ -1,9 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Cog6ToothIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
-import { ToggleButton } from './ToggleButton';
 import { MenuList } from './MenuList';
 
 import { TeamsList } from './TeamsList';
