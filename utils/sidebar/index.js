@@ -1,24 +1,27 @@
 import {
-    CalendarIcon,
-    ChartPieIcon,
     DocumentDuplicateIcon,
-    FolderIcon,
     HomeIcon,
     UsersIcon,
+    PlusIcon,
+    QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
 
 export const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
-    { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+    { name: 'Home', href: '/', icon: HomeIcon, current: true },
     {
-        name: 'Documents',
-        href: '#',
+        name: 'Profile',
+        href: '/pages/profile',
+        icon: UsersIcon,
+        current: false,
+    },
+    { name: 'New', href: '/pages/new-summary', icon: PlusIcon, current: false },
+    {
+        name: 'Summaries',
+        href: '/pages/summaries',
         icon: DocumentDuplicateIcon,
         current: false,
     },
-    { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    { name: 'Help', href: '#', icon: QuestionMarkCircleIcon, current: false },
 ];
 
 export const teams = [
