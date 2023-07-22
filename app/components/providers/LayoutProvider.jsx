@@ -5,9 +5,12 @@ import { Footer } from '../footer/Footer';
 import { Sidebar } from '../sidebar/Sidebar';
 
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { ToggleButton } from '../sidebar/ToggleButton';
 
 export const LayoutProvider = ({ children }) => {
     const pathname = usePathname();
+    const [toggle, setToggle] = useState(false);
 
     const satisfiedPathsForHeaderAndFooter = ['/'];
     const unsatisfiedPathsForSidebar = ['/', '/pages/register', '/pages/login'];
@@ -18,7 +21,15 @@ export const LayoutProvider = ({ children }) => {
                 {satisfiedPathsForHeaderAndFooter.includes(pathname) && (
                     <Header />
                 )}
-                {!unsatisfiedPathsForSidebar.includes(pathname) && <Sidebar />}
+
+                {!unsatisfiedPathsForSidebar.includes(pathname) && (
+                    <div>
+                        <Sidebar toggle={toggle} setToggle={setToggle} />
+
+                        <ToggleButton toggle={toggle} setToggle={setToggle} />
+                    </div>
+                )}
+
                 {children}
 
                 {satisfiedPathsForHeaderAndFooter.includes(pathname) && (
