@@ -117,8 +117,6 @@ export default function Register() {
                 <div className="pointer mt-10 flex items-center gap-4">
                     {providers &&
                         Object.values(providers).map((provider) => {
-                            console.log(provider);
-
                             return (
                                 <button
                                     type="button"

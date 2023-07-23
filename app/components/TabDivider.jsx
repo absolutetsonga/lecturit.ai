@@ -13,8 +13,6 @@ export const TabDivider = ({ links, setLinks }) => {
         <div className="w-[60%] border-b border-gray-200 px-8 dark:border-gray-700">
             <ul className="-mb-px flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400">
                 {links.map((link, index) => {
-                    console.log({ name: link.label, active: link.active });
-
                     return (
                         <li
                             className="mr-2"
