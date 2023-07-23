@@ -8,14 +8,12 @@ import { AuthLayout } from '@/app/components/AuthLayout';
 import { Button } from '@/app/components/Button';
 import { SelectField, TextField } from '@/app/components/main/Fields';
 
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signIn, getProviders } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 
 import google from '../../images/logos/google.svg';
 
 export default function Register() {
-    const { data: session } = useSession();
-
     const [providers, setProviders] = useState(null);
 
     useEffect(() => {
@@ -128,7 +126,7 @@ export default function Register() {
                                     onClick={() =>
                                         signIn(provider.id, {
                                             callbackUrl:
-                                                'http://localhost:3000',
+                                                'http://localhost:3000/pages/new-summary/with-file',
                                         })
                                     }
                                 >
