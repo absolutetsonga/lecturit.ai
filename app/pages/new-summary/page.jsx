@@ -4,9 +4,9 @@ import { MicrophoneIcon } from '@heroicons/react/24/outline';
 import { PaperClipIcon } from '@heroicons/react/24/outline';
 
 import { useState } from 'react';
-import { UploadFile } from '@/app/components/UploadFile';
-import { RecordAudio } from '@/app/components/RecordAudio';
-import { TabDivider } from '@/app/components/TabDivider';
+import { UploadFile } from '@/app/components/add-summary/UploadFile';
+import { RecordAudio } from '@/app/components/add-summary/RecordAudio';
+import { TabDivider } from '@/app/components/add-summary/TabDivider';
 
 const newSummary = () => {
     const [links, setLinks] = useState([

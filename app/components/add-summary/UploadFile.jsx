@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
-import { SummaryText } from '@/app/components/SummaryText';
-import { TranscribeText } from '@/app/components/TranscribeText';
-import { DNDInput } from '@/app/components/DNDInput';
+import { SummaryText } from '@/app/components/add-summary/SummaryText';
+import { TranscribeText } from '@/app/components/add-summary/TranscribeText';
+import { DNDInput } from '@/app/components/add-summary/DNDInput';
 
 import { getTranscript, addSummary, sendToNotion } from '@/utils/APIHandlers';
 
