@@ -10,7 +10,7 @@ export const TabDivider = ({ links, setLinks }) => {
     };
 
     return (
-        <div className="w-[60%] border-b border-gray-200 px-8 dark:border-gray-700">
+        <div className="w-[60%] border-b border-gray-200 mx-8 dark:border-gray-700">
             <ul className="-mb-px flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400">
                 {links.map((link, index) => {
                     return (
