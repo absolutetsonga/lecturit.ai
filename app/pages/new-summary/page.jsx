@@ -23,8 +23,9 @@ const newSummary = () => {
     ]);
 
     return (
-        <div className="flex min-h-[100vh] min-w-[100%] max-w-7xl flex-col items-center gap-10 pt-20">
+        <div className="flex min-h-[100vh] max-w-7xl min-w-[100%] flex-col items-center gap-10 pt-20">
             <TabDivider links={links} setLinks={setLinks} />
+
             {links[0].active ? <RecordAudio /> : <UploadFile />}
         </div>
     );

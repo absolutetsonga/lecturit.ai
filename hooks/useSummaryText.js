@@ -24,6 +24,7 @@ const useAudioRecording = () => {
                 stream = await navigator.mediaDevices.getUserMedia({
                     audio: true,
                 });
+                
                 setMicrophoneAccess(true);
                 getMediaRecorder();
             } catch (error) {

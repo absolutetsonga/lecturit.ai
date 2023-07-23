@@ -45,12 +45,12 @@ export const UploadFile = () => {
     if (status === 'loading') return <> Loading </>;
 
     return (
-        <div>
-            <div className="flex flex-col items-center gap-8 md:gap-4">
-                <h1 className="px-7 font-bold sm:text-xl md:text-2xl">
-                    Already have downloaded mp3 file of the lecture? Insert it!
-                </h1>
+        <div className="flex flex-col items-center gap-20 w-full max-w-5xl">
+            <h1 className="px-7 font-bold sm:text-xl md:text-2xl">
+                Already have downloaded mp3 file of the lecture? Insert it!
+            </h1>
 
+            <div className="flex flex-col gap-10 w-full items-center">
                 <DNDInput
                     file={file}
                     setFile={setFile}
