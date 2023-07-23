@@ -53,6 +53,8 @@ function MobileNavIcon({ open }) {
 }
 
 function MobileNavigation() {
+    const { data: session } = useSession();
+
     return (
         <Popover>
             <Popover.Button
@@ -92,9 +94,15 @@ function MobileNavigation() {
                         </MobileNavLink>
                         <MobileNavLink href="#pricing">Pricing</MobileNavLink>
                         <hr className="m-2 border-slate-300/40" />
-                        <MobileNavLink href="/pages/login">
-                            Sign in
-                        </MobileNavLink>
+                        <hr className="m-2 border-slate-300/40" />
+
+                        {session && session.user ? (
+                            <Dropdown />
+                        ) : (
+                            <MobileNavLink href="/pages/login">
+                                Sign in
+                            </MobileNavLink>
+                        )}
                     </Popover.Panel>
                 </Transition.Child>
             </Transition.Root>
@@ -122,7 +130,9 @@ export function Header() {
 
                     <div className="flex items-center gap-x-5 md:gap-x-8">
                         {session ? (
-                            <Dropdown />
+                            <div className="hidden md:block">
+                                <Dropdown />
+                            </div>
                         ) : (
                             <div className="flex items-center gap-x-5 md:gap-x-8">
                                 <div className="hidden md:block">
