@@ -124,7 +124,7 @@ export default function Register() {
                                     onClick={() =>
                                         signIn(provider.id, {
                                             callbackUrl:
-                                                'http://localhost:3000/pages/new-summary/with-file',
+                                                'http://localhost:3000/pages/new-summary',
                                         })
                                     }
                                 >

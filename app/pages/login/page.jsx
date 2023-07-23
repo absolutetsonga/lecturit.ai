@@ -103,7 +103,7 @@ export default function Login() {
                                 className="dark:focus:ring-[#4285F4]/55 mb-2 mr-2 inline-flex items-center gap-4 rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:bg-violet-600"
                                 onClick={() => {
                                     signIn(provider.id, {
-                                        callbackUrl: 'http://localhost:3000/pages/new-summary/with-file',
+                                        callbackUrl: 'http://localhost:3000/pages/new-summary',
                                     });
                                 }}
                             >
