@@ -28,17 +28,17 @@ const handler = NextAuth({
             try {
                 await connectToDb();
 
-                // const userExists = await User.findOne({
-                //     email: profile.email,
-                // });
+                const userExists = await User.findOne({
+                    email: profile.email,
+                });
 
-                // if (!userExists) {
-                //     await User.create({
-                //         email: profile.email,
-                //         username: profile.name.replace(' ', '').toLowerCase(),
-                //         image: profile.picture,
-                //     });
-                // }
+                if (!userExists) {
+                    await User.create({
+                        email: profile.email,
+                        username: profile.name.replace(' ', '').toLowerCase(),
+                        image: profile.picture,
+                    });
+                }
 
                 return true;
             } catch (error) {
