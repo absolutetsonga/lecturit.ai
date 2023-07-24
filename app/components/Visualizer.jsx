@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Microphone, Bar } from '@/utils/microphone';
 
-export const Visualizer = ({ theme }) => {
+export const Visualizer = ({ theme, microphoneAccess }) => {
     const canvasRef = useRef(null);
     const microphoneRef = useRef(null);
     const bars = useRef([]);
@@ -57,7 +57,7 @@ export const Visualizer = ({ theme }) => {
             microphoneRef.current = null;
             bars.current = [];
         };
-    }, [theme]);
+    }, [theme, microphoneAccess]);
 
     return <canvas ref={canvasRef} id="myCanvas" className='w-[80%] h-[150px]'/>;
 };
