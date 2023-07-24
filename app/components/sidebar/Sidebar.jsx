@@ -1,4 +1,6 @@
 import { Fragment } from 'react';
+import Image from 'next/image';
+import ThemeSwitcher from '../header/ThemeSwitcher';
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
@@ -11,16 +13,11 @@ import { useSession } from 'next-auth/react';
 
 export const Sidebar = ({ toggle, setToggle }) => {
     const { data: session } = useSession();
-    // const [sidebarOpen, setSidebarOpen] = useState(true);
 
     return (
         <div>
             <Transition.Root show={toggle} as={Fragment}>
-                <Dialog
-                    as="div"
-                    className="relative z-50"
-                    onClose={setToggle}
-                >
+                <Dialog as="div" className="relative z-50" onClose={setToggle}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -44,13 +41,12 @@ export const Sidebar = ({ toggle, setToggle }) => {
                             leaveTo="-translate-x-full"
                         >
                             <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
-                                    <div className="flex h-16 shrink-0 items-center">
-                                        <img
-                                            className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                            alt="Your Company"
-                                        />
+                                <div className="relative flex grow flex-col gap-y-5 overflow-y-auto dark:bg-gray-950 bg-gray-50 px-6 pb-4">
+                                    <div className="flex h-16 shrink-0 items-center text-2xl">
+                                        lecturit.ai
+                                        <div className='absolute right-4'>
+                                            <ThemeSwitcher />
+                                        </div>
                                     </div>
                                     <nav className="flex flex-1 flex-col">
                                         <ul
@@ -66,7 +62,7 @@ export const Sidebar = ({ toggle, setToggle }) => {
                                                 </ul>
                                             </li>
                                             <li>
-                                                <div className="text-xs font-semibold leading-6 text-gray-400">
+                                                <div className="text-xs font-semibold leading-6">
                                                     Your teams
                                                 </div>
                                                 <ul
@@ -79,13 +75,30 @@ export const Sidebar = ({ toggle, setToggle }) => {
                                             <li className="mt-auto">
                                                 <a
                                                     href="#"
-                                                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                                                    className="group -mx-2 flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 dark:hover:bg-gray-900 hover:bg-gray-50 hover:text-indigo-600"
                                                 >
-                                                    <Cog6ToothIcon
-                                                        className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
-                                                        aria-hidden="true"
+                                                    <Image
+                                                        width={40}
+                                                        height={40}
+                                                        className={
+                                                            'max-h-[40px] rounded-full'
+                                                        }
+                                                        src={
+                                                            session?.user.image
+                                                        }
+                                                        alt={'user_image'}
                                                     />
-                                                    Settings
+
+                                                    <div className="flex flex-col gap-2">
+                                                        <p className="text-sm">
+                                                            Signed in as:
+                                                        </p>
+                                                        <p className="truncate text-sm font-medium">
+                                                            {
+                                                                session?.user.email
+                                                            }
+                                                        </p>
+                                                    </div>
                                                 </a>
                                             </li>
                                         </ul>

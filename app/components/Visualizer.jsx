@@ -3,21 +3,22 @@
 import React, { useEffect, useRef } from 'react';
 import { Microphone, Bar } from '@/utils/microphone';
 
-export const Visualizer = () => {
+export const Visualizer = ({ theme }) => {
     const canvasRef = useRef(null);
     const microphoneRef = useRef(null);
     const bars = useRef([]);
 
     const createBars = () => {
-        const barWidth = canvasRef.current.width / 128;
-        for (let i = 0; i < 512; i++) {
+        const barWidth = canvasRef.current.width / 256;
+        
+        for (let i = 0; i < 2048; i++) {
             bars.current.push(
                 new Bar(
                     i * barWidth,
                     canvasRef.current.height / 2,
                     1,
                     20,
-                    'white',
+                    theme === 'dark' ? 'white' : 'black',
                 ),
             );
         }
@@ -56,7 +57,7 @@ export const Visualizer = () => {
             microphoneRef.current = null;
             bars.current = [];
         };
-    }, []);
+    }, [theme]);
 
     return <canvas ref={canvasRef} id="myCanvas" className='w-[80%] h-[150px]'/>;
 };

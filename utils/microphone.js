@@ -63,7 +63,7 @@ export class Bar {
     }
 
     update(micInput) {
-        this.height = micInput * 512;
+        this.height = micInput * 128;
     }
 
     draw(context) {

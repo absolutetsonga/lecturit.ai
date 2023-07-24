@@ -1,8 +1,8 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 
 export const ToggleButton = ({ toggle, setToggle }) => {
     return (
@@ -29,14 +29,14 @@ export const ToggleButton = ({ toggle, setToggle }) => {
                         >
                             <span className="sr-only">Close sidebar</span>
                             <XMarkIcon
-                                className="h-10 w-10 text-white"
+                                className="h-10 w-10 text-black dark:text-white"
                                 aria-hidden="true"
                             />
                         </button>
                     ) : (
                         <button
                             type="button"
-                            className="-m-2.5 p-2.5 text-white"
+                            className="-m-2.5 p-2.5 text-black dark:text-white"
                             onClick={() => setToggle(true)}
                         >
                             <span className="sr-only">Open sidebar</span>

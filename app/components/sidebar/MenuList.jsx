@@ -10,8 +10,8 @@ export const MenuList = () => {
                 href={item.href}
                 className={classNames(
                     path === item.href
-                        ? 'bg-gray-50 text-indigo-600'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+                        ? 'dark:bg-gray-900 bg-gray-50 text-indigo-600'
+                        : 'hover:bg-gray-50 hover:text-indigo-600 dark:hover:bg-gray-900',
                     'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                 )}
             >

@@ -68,7 +68,7 @@ export const RecordAudio = () => {
                         {recordingAudioComponent}
                     </button>
 
-                    <Visualizer />
+                    <Visualizer theme={theme}/>
 
                     {recordedAudio && (
                         <div>
