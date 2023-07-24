@@ -8,37 +8,41 @@ import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 
 import { Container } from '@/app/components/Container';
+
 import backgroundImageLight from '@/app/images/background-features.jpg';
 import backgroundImageDark from '@/app/images/background-features-dark.svg';
-import screenshotExpenses from '@/app/images/screenshots/expenses.png';
-import screenshotPayroll from '@/app/images/screenshots/payroll.png';
 import screenshotReporting from '@/app/images/screenshots/reporting.png';
 import screenshotVatReturns from '@/app/images/screenshots/vat-returns.png';
 
+import liveRecording from '@/app/images/screenshots/live-recording-dark.svg';
+import fileUplaoding from '@/app/images/screenshots/file-uploading-dark.svg';
+import summaryChecking from '@/app/images/screenshots/summary-checking-dark.svg';
+import notion from "@/app/images/screenshots/notion.svg";
+
 const features = [
     {
-        title: 'Payroll',
+        title: 'Live Recording',
         description:
-            "Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.",
-        image: screenshotPayroll,
+            'Keep track of yours lectures on the current time. Give access to the microphone and stop taking note.',
+        image: liveRecording,
     },
     {
-        title: 'Claim expenses',
+        title: 'File Uploading',
         description:
-            "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.",
-        image: screenshotExpenses,
+            'Easily export your audio file where you store whole lecture and use it for your purposes.',
+        image: fileUplaoding,
     },
     {
-        title: 'VAT handling',
+        title: 'Summary Checking',
         description:
-            "We only sell our software to companies who don't deal with VAT at all, so technically we do all the VAT stuff they need.",
-        image: screenshotVatReturns,
+            "Check the quality of your summaries, so you can edit it and send to the Notion.",
+        image: summaryChecking,
     },
     {
-        title: 'Reporting',
+        title: 'Notion Uploading',
         description:
-            'Easily export your data into an Excel spreadsheet where you can do whatever the hell you want with it.',
-        image: screenshotReporting,
+            "All of your summaries will be organized into one place, in one folder and you can prepare to your final exams with lecturit.ai!",
+        image: notion,
     },
 ];
 
@@ -149,9 +153,9 @@ export function PrimaryFeatures() {
                                                 {feature.description}
                                             </p>
                                         </div>
-                                        <div className="mt-10 w-[45rem] overflow-hidden rounded-xl bg-slate-50 shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
+                                        <div className="mt-10 w-[45rem] overflow-hidden rounded-xl shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
                                             <Image
-                                                className="w-full"
+                                                className="w-full object-contain"
                                                 src={feature.image}
                                                 alt=""
                                                 priority

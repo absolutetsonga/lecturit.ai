@@ -42,7 +42,7 @@ const summaries = () => {
     const populateSummaries = summaries.map((element, index) => {
         return (
             <div key={`summary-${index}`}>
-                <div className="max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+                <div className="max-w-xl rounded-lg border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             Noteworthy technology acquisitions 2021
@@ -81,7 +81,7 @@ const summaries = () => {
         <>
             <div className="flex justify-center">
                 {summaries.length ? (
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {populateSummaries}
                     </div>
                 ) : (
