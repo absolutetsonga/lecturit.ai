@@ -3,7 +3,7 @@ import {
     HomeIcon,
     UsersIcon,
     PlusIcon,
-    QuestionMarkCircleIcon
+    QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
 
 export const navigation = [
@@ -21,7 +21,7 @@ export const navigation = [
         icon: DocumentDuplicateIcon,
         current: false,
     },
-    { name: 'Help', href: '#', icon: QuestionMarkCircleIcon, current: false },
+    { name: 'Help', href: '/pages/help', icon: QuestionMarkCircleIcon, current: false },
 ];
 
 export const teams = [
