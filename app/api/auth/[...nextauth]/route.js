@@ -26,24 +26,24 @@ const handler = NextAuth({
 
         async signIn({ profile }) {
             try {
-                await connectToDb();
+                // await connectToDb();
 
-                const userExists = await User.findOne({
-                    email: profile.email,
-                });
+                // const userExists = await User.findOne({
+                //     email: profile.email,
+                // });
 
-                if (!userExists) {
-                    await User.create({
-                        email: profile.email,
-                        username: profile.name.replace(' ', '').toLowerCase(),
-                        image: profile.picture,
-                    });
-                }
+                // if (!userExists) {
+                //     await User.create({
+                //         email: profile.email,
+                //         username: profile.name.replace(' ', '').toLowerCase(),
+                //         image: profile.picture,
+                //     });
+                // }
 
                 return true;
             } catch (error) {
                 console.error(
-                    `Error while trying to Sign In: ${error.message}`
+                    `Error while trying to Sign In: ${error.message}`,
                 );
 
                 return false;
