@@ -16,8 +16,6 @@ export function Dropdown() {
 
     const [toggle, setToggle] = useState();
 
-    console.log(session);
-
     return (
         <div className="flex items-center gap-6">
             <div className="flex flex-row items-center">

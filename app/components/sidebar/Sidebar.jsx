@@ -3,13 +3,12 @@ import Image from 'next/image';
 import ThemeSwitcher from '../header/ThemeSwitcher';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 import { MenuList } from './MenuList';
 
 import { TeamsList } from './TeamsList';
 
-import { useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export const Sidebar = ({ toggle, setToggle }) => {
     const { data: session } = useSession();
@@ -41,10 +40,10 @@ export const Sidebar = ({ toggle, setToggle }) => {
                             leaveTo="-translate-x-full"
                         >
                             <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                                <div className="relative flex grow flex-col gap-y-5 overflow-y-auto dark:bg-gray-950 bg-gray-50 px-6 pb-4">
+                                <div className="relative flex grow flex-col gap-y-5 overflow-y-auto bg-gray-50 px-6 pb-4 dark:bg-gray-950">
                                     <div className="flex h-16 shrink-0 items-center text-2xl">
                                         lecturit.ai
-                                        <div className='absolute right-4'>
+                                        <div className="absolute right-4">
                                             <ThemeSwitcher />
                                         </div>
                                     </div>
@@ -73,33 +72,47 @@ export const Sidebar = ({ toggle, setToggle }) => {
                                                 </ul>
                                             </li>
                                             <li className="mt-auto">
-                                                <a
-                                                    href="#"
-                                                    className="group -mx-2 flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 dark:hover:bg-gray-900 hover:bg-gray-50 hover:text-indigo-600"
-                                                >
-                                                    <Image
-                                                        width={40}
-                                                        height={40}
-                                                        className={
-                                                            'max-h-[40px] rounded-full'
-                                                        }
-                                                        src={
-                                                            session?.user.image
-                                                        }
-                                                        alt={'user_image'}
-                                                    />
-
-                                                    <div className="flex flex-col gap-2">
-                                                        <p className="text-sm">
-                                                            Signed in as:
-                                                        </p>
-                                                        <p className="truncate text-sm font-medium">
-                                                            {
-                                                                session?.user.email
+                                                {session ? (
+                                                    <div
+                                                        href="#"
+                                                        className="group -mx-2 flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600 dark:hover:bg-gray-900"
+                                                    >
+                                                        <Image
+                                                            width={40}
+                                                            height={40}
+                                                            className={
+                                                                'max-h-[40px] rounded-full'
                                                             }
-                                                        </p>
+                                                            src={
+                                                                session?.user
+                                                                    .image
+                                                            }
+                                                            alt={'user_image'}
+                                                        />
+                                                        <div className="flex flex-col gap-2">
+                                                            <p className="text-sm">
+                                                                Signed in as:
+                                                            </p>
+                                                            <p className="truncate text-sm font-medium">
+                                                                {
+                                                                    session
+                                                                        ?.user
+                                                                        .email
+                                                                }
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </a>
+                                                ) : (
+                                                    <div
+                                                        href="#"
+                                                        className="group -mx-2 flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600 dark:hover:bg-gray-900"
+                                                        onClick={signIn}
+                                                    >
+                                                        <h2 className="text-2xl">
+                                                            Sign In
+                                                        </h2>
+                                                    </div>
+                                                )}
                                             </li>
                                         </ul>
                                     </nav>
