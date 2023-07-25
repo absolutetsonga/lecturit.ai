@@ -6,8 +6,11 @@ import axios from 'axios';
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useCheckAuth } from '@/hooks/useCheckAuth';
 
 const profile = () => {
+    useCheckAuth();
+
     const regexPattern = /^[0-9A-Za-z]{8}(-[0-9A-Za-z]{4}){3}-[0-9A-Za-z]{12}$/;
 
     const { data: session } = useSession();

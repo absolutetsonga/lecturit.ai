@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { useCheckAuth } from '@/hooks/useCheckAuth';
 
 import axios from 'axios';
 
 const summaries = () => {
+    useCheckAuth();
+
     const [summaries, setSummaries] = useState([]);
     const { data: session } = useSession();
 
