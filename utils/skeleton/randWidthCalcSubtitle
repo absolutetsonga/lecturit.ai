@@ -1,0 +1,9 @@
+export const randWidthCalcSubtitle = () => {
+    const randWidth = Math.ceil(Math.random() * 4);
+
+    if (randWidth === 1) {
+        return randWidthCalcSubtitle(randWidth);
+    } else {
+        return randWidth;
+    }
+};
