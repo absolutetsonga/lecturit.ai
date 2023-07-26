@@ -52,7 +52,7 @@ export const POST = async (req) => {
             return response;
         };
 
-        const response = createSummary();
+        const response = await createSummary();
 
         return new Response(JSON.stringify(response), {
             status: 201,

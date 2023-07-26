@@ -5,7 +5,12 @@ import { useSession } from 'next-auth/react';
 
 import { DNDInput } from '@/app/components/add-summary/DNDInput';
 
-import { getTranscript, addSummary, sendToNotion, getKeys } from '@/utils/APIHandlers';
+import {
+    getTranscript,
+    addSummary,
+    sendToNotion,
+    getKeys,
+} from '@/utils/APIHandlers';
 import { Accordion } from './Accordion';
 
 export const UploadFile = () => {
@@ -32,7 +37,9 @@ export const UploadFile = () => {
 
             setSummaryText(summaryTexts.join(''));
 
-            const keys = getKeys(session?.user.id);
+            console.log({ userId: session?.user?.id });
+
+            const keys = await getKeys(session?.user?.id);
 
             const response = await sendToNotion(summaryTexts, keys);
 
@@ -47,12 +54,12 @@ export const UploadFile = () => {
     if (status === 'loading') return <> Loading </>;
 
     return (
-        <div className="flex flex-col items-center gap-20 w-full max-w-5xl">
+        <div className="flex w-full max-w-5xl flex-col items-center gap-20">
             <h1 className="px-7 font-bold sm:text-xl md:text-2xl">
                 Already have downloaded mp3 file of the lecture? Insert it!
             </h1>
 
-            <div className="flex flex-col gap-10 w-full items-center">
+            <div className="flex w-full flex-col items-center gap-10">
                 <DNDInput
                     file={file}
                     setFile={setFile}
