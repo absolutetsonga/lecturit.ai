@@ -10,6 +10,10 @@ const SummarySchema = new Schema({
     summary: {
         type: String,
     },
+
+    title: {
+        type: String,
+    }
 });
 
 const Summary = models.Summary || model('Summary', SummarySchema);
