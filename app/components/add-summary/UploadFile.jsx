@@ -10,7 +10,10 @@ import {
     addSummary,
     sendToNotion,
     getKeys,
+    createTitle,
+    addSummaryToDb,
 } from '@/utils/APIHandlers';
+
 import { Accordion } from './Accordion';
 
 export const UploadFile = () => {
@@ -18,6 +21,7 @@ export const UploadFile = () => {
 
     const [transcribeText, setTranscribeText] = useState();
     const [summaryText, setSummaryText] = useState();
+    const [title, setTitle] = useState();
 
     const [file, setFile] = useState();
 
@@ -33,15 +37,31 @@ export const UploadFile = () => {
 
             setTranscribeText(transcriptedText);
 
-            const summaryTexts = await addSummary(transcriptedText, session);
+            const summaryTexts = await addSummary(transcriptedText);
 
+            console.log(summaryTexts);
+            console.log(summaryTexts[0]);
+            
+            const summaryTitle = await createTitle(summaryTexts[0]);
+
+            setTitle(summaryTitle);
             setSummaryText(summaryTexts.join(''));
-
-            console.log({ userId: session?.user?.id });
 
             const keys = await getKeys(session?.user?.id);
 
-            const response = await sendToNotion(summaryTexts, keys);
+            const summary = await addSummaryToDb(
+                summaryTexts.join(''),
+                summaryTitle,
+                session?.user?.id,
+            );
+
+            const response = await sendToNotion(
+                summaryTexts,
+                summaryTitle,
+                keys,
+            );
+
+            console.log(summary);
 
             return response;
         } catch (error) {
