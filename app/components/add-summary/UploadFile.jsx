@@ -38,10 +38,6 @@ export const UploadFile = () => {
             setTranscribeText(transcriptedText);
 
             const summaryTexts = await addSummary(transcriptedText);
-
-            console.log(summaryTexts);
-            console.log(summaryTexts[0]);
-
             const summaryTitle = await createTitle(summaryTexts[0]);
 
             setTitle(summaryTitle);
@@ -60,8 +56,6 @@ export const UploadFile = () => {
                 summaryTitle,
                 keys,
             );
-
-            console.log(summary);
 
             return response;
         } catch (error) {

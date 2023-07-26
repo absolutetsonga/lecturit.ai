@@ -2,7 +2,7 @@ import { connectToDb } from '@/utils/database';
 import { Client } from '@notionhq/client';
 
 export const POST = async (req) => {
-    const { formattedResults, keys } = await req.json();
+    const { formattedResults, summaryTitle, keys } = await req.json();
 
     const { notionIntegrationSecret, notionPageId } = keys;
 
@@ -33,7 +33,7 @@ export const POST = async (req) => {
                             {
                                 text: {
                                     content:
-                                        'Andrew Huberman Podcast about Fitness and Food',
+                                        summaryTitle,
                                 },
                             },
                         ],
