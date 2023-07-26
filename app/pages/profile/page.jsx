@@ -54,8 +54,6 @@ const profile = () => {
             userEmail: session?.user.email,
         });
 
-        console.log(res);
-
         // receiving result and displaying it.d
     };
 

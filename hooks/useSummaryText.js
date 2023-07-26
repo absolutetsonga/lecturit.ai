@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
 
-import { getTranscript, addSummary, sendToNotion } from '@/utils/APIHandlers';
+import { getTranscript, addSummary, sendToNotion, getKeys } from '@/utils/APIHandlers';
 
 const useAudioRecording = () => {
     const { data: session, status } = useSession();
@@ -74,7 +74,9 @@ const useAudioRecording = () => {
 
                 setSummaryText(summaryTexts.join(''));
 
-                const response = sendToNotion(summaryTexts);
+                const keys = await getKeys(session.user.id);
+
+                const response = sendToNotion(summaryTexts, keys);
                 
                 return response;
             } catch (error) {

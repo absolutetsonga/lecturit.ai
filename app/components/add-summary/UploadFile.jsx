@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 
 import { DNDInput } from '@/app/components/add-summary/DNDInput';
 
-import { getTranscript, addSummary, sendToNotion } from '@/utils/APIHandlers';
+import { getTranscript, addSummary, sendToNotion, getKeys } from '@/utils/APIHandlers';
 import { Accordion } from './Accordion';
 
 export const UploadFile = () => {
@@ -32,7 +32,9 @@ export const UploadFile = () => {
 
             setSummaryText(summaryTexts.join(''));
 
-            const response = await sendToNotion(summaryTexts);
+            const keys = getKeys(session?.user.id);
+
+            const response = await sendToNotion(summaryTexts, keys);
 
             return response;
         } catch (error) {

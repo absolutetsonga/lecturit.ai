@@ -31,11 +31,25 @@ export const addSummary = async (transcript, session) => {
     }
 };
 
+export const getKeys = async (userId) => {
+    try {
+        const response = await axios.get('/api/user', {
+            params: {
+                userId: userId,
+            },
+        });
 
-export const sendToNotion = async (formattedResults) => {
+        return response.data;
+    } catch (err) {
+        `Error while trying to get access to user's notion keys: ${err.message}`;
+    }
+};
+
+export const sendToNotion = async (formattedResults, keys) => {
     try {
         const response = await axios.post('/api/notion/new', {
             formattedResults: JSON.stringify(formattedResults),
+            keys,
         });
 
         return response;
@@ -45,4 +59,3 @@ export const sendToNotion = async (formattedResults) => {
         );
     }
 };
-

@@ -32,15 +32,20 @@ const summaries = () => {
         fetchPosts();
     }, [session]);
 
-    const sendToNotion = async (summary) => {
-        const url = '/api/notion/new';
-
-        const response = await axios.post(url, {
-            userId: session?.user.id,
-            summary: JSON.stringify(summary),
-        });
-
-        return response;
+    const sendToNotion = async () => {
+        try {
+            const response = await axios.get('/api/user', {
+                params: {
+                    userId: session?.user?.id,
+                },
+            });
+            
+            return response;
+        } catch (err) {
+            console.error(
+                `Error while trying to send userId to the backend: ${err.message}`,
+            );
+        }
     };
 
     const populateSummaries = summaries.map((element, index) => {

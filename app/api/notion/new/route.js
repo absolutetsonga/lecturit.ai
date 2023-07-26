@@ -2,14 +2,16 @@ import { connectToDb } from '@/utils/database';
 import { Client } from '@notionhq/client';
 
 export const POST = async (req) => {
-    const { formattedResults } = await req.json();
+    const { formattedResults, keys } = await req.json();
+
+    const { notionIntegrationSecret, notionPageId } = keys;
 
     try {
-        const formattedResultsArray = JSON.parse(formattedResults);
-
         await connectToDb();
 
-        const notion = new Client({ auth: process.env.NOTION_API_KEY });
+        const formattedResultsArray = JSON.parse(formattedResults);
+
+        const notion = new Client({ auth: notionIntegrationSecret });
 
         if (!notion) return;
 
@@ -23,7 +25,7 @@ export const POST = async (req) => {
             const response = await notion.pages.create({
                 parent: {
                     type: 'page_id',
-                    page_id: process.env.NOTION_PAGE_ID,
+                    page_id: notionPageId,
                 },
                 properties: {
                     title: {
