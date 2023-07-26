@@ -48,8 +48,12 @@ export function CTA() {
                         software so you can feel like you’re doing something
                         productive.
                     </p>
-                    <Button href="/pages/register" color="white" className="mt-10">
-                        Get 6 months free
+                    <Button
+                        href="/pages/register"
+                        color="white"
+                        className="mt-10"
+                    >
+                        Check it out
                     </Button>
                 </div>
             </Container>

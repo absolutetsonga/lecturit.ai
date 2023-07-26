@@ -5,7 +5,7 @@ export function Hero() {
     return (
         <Container className="flex min-h-[90vh] flex-col items-center justify-center pb-16 pt-20 text-center lg:pt-32">
             <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight sm:text-7xl">
-                Accounting{' '}
+                Creating second brain{' '}
                 <span className="relative whitespace-nowrap text-blue-600 dark:text-violet-600">
                     <svg
                         aria-hidden="true"
@@ -17,14 +17,14 @@ export function Hero() {
                     </svg>
                     <span className="relative">made simple</span>
                 </span>{' '}
-                for small businesses.
+                for individuals.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-900 dark:text-slate-200">
-                Most bookkeeping software is accurate, but hard to use. We make
-                the opposite trade-off, and hope you don’t get audited.
+                Unleash Your Cognitive Potential and Organize Your Knowledge
+                with Ease
             </p>
             <div className="mt-10 flex justify-center gap-x-6">
-                <Button href="/pages/register">Get 6 months free</Button>
+                <Button href="/pages/register">Get Started</Button>
                 <Button
                     href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                     variant="outline"
