@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
-export const Accordion = ({ transcribeText, summaryText }) => {
+export const Accordion = ({ transcribeText, summaryText, title }) => {
     const [toggleFirst, setToggleFirst] = useState(false);
     const [toggleSecond, setToggleSecond] = useState(false);
 
@@ -56,10 +56,11 @@ export const Accordion = ({ transcribeText, summaryText }) => {
                     </button>
                 </h2>
                 <div
-                    className={`border border-t-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900 ${
+                    className={`flex flex-col gap-10 border border-t-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900 ${
                         toggleSecond ? 'block' : 'hidden'
                     }`}
                 >
+                    <h1 className="text-2xl font-bold">{title}</h1>
                     <SummaryText summaryText={summaryText} />
                 </div>
             </div>

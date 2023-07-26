@@ -58,11 +58,9 @@ export const sendToNotion = async (formattedResults, summaryTitle, keys) => {
 
 export const createTitle = async (text) => {
     try {
-        const response = await axios.post('/api/summary/title/new', {
-            text: JSON.stringify(text),
-        });
+        const response = await axios.post('/api/summary/title/new', { text });
 
-        console.log(response); 
+        console.log(response);
         return response.data;
     } catch (err) {
         console.error(

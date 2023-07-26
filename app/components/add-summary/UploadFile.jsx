@@ -41,7 +41,7 @@ export const UploadFile = () => {
 
             console.log(summaryTexts);
             console.log(summaryTexts[0]);
-            
+
             const summaryTitle = await createTitle(summaryTexts[0]);
 
             setTitle(summaryTitle);
@@ -89,6 +89,7 @@ export const UploadFile = () => {
                 <Accordion
                     transcribeText={transcribeText}
                     summaryText={summaryText}
+                    title={title}
                 />
             </div>
         </div>
