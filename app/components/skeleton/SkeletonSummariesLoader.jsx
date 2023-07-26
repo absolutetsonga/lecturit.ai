@@ -14,7 +14,7 @@ const SkeletonItem = () => {
 
     return (
         <div className="flex items-center justify-between pt-2">
-            <div className="w-4/5">
+            <div className="w-3/5">
                 <div
                     className={`mb-2.5 h-2.5 w-1/${randWidthTitle} rounded-full bg-gray-300 dark:bg-gray-600`}
                 ></div>

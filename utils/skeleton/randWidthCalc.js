@@ -1,6 +1,6 @@
 export const randWidthCalc = () => {
-    const randWidthTitle = Math.ceil(Math.random() * 6);
-    const randWidthSubtitle = Math.ceil(Math.random() * 6);
+    const randWidthTitle = Math.ceil(Math.random() * 5);
+    const randWidthSubtitle = Math.ceil(Math.random() * 5);
 
     if (
         randWidthTitle >= randWidthSubtitle ||
