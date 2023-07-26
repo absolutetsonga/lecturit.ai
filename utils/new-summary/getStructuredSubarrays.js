@@ -1,5 +1,5 @@
-const getStructuredSubarrays = (summary) => {
-    const sentences = summary.split('. ');
+const getStructuredSubarrays = (transcript) => {
+    const sentences = transcript.split('. ');
 
     let subarraysOfSentences = [];
     let currentSubarray = [];

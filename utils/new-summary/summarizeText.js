@@ -5,6 +5,7 @@ const summarizeText = async (text) => {
     const llm = new OpenAI({
         temperature: 0.0,
         openAIApiKey: process.env.OPENAI_API_KEY,
+        modelName: 'gpt-3.5-turbo-16k',
     });
 
     const template = `You are the summarization tool for students of the school and universities that will summarize lecture's, podcast's part that contains 10 sentences into brief summary, but that also provide specific information, interesting facts or material that will help for them to learn this new things.
