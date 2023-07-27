@@ -32,67 +32,39 @@ const summaries = () => {
         fetchPosts();
     }, [session]);
 
-    const sendToNotion = async () => {
-        try {
-            const response = await axios.get('/api/user', {
-                params: {
-                    userId: session?.user?.id,
-                },
-            });
-            
-            return response;
-        } catch (err) {
-            console.error(
-                `Error while trying to send userId to the backend: ${err.message}`,
-            );
-        }
-    };
-
     const populateSummaries = summaries.map((element, index) => {
+        console.log(element);
+
         return (
-            <div key={`summary-${index}`}>
-                <div className="max-w-xl rounded-lg border border-gray-200 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            Noteworthy technology acquisitions 2021
-                        </h5>
-                    </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <li
+                key={`summary-${index}`}
+                className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-900 sm:px-6"
+            >
+                <p className="flex-none rounded-full text-2xl">
+                    {element?.emoji ? element?.emoji?.replace(/"/g, '') : '🫥'}
+                </p>
+                <div className="min-w-0 flex-auto">
+                    <p className="text-md leading-3 font-semibold xs:text-lg xs:leading-6">
+                        {element.title.replace(/"/g, '')}
+                    </p>
+                    <p className="xs:text-md xs leading-2 mt-1 line-clamp-5 text-sm xs:leading-5">
                         {element.summary}
                     </p>
-                    <div
-                        onClick={() => sendToNotion(element.summary)}
-                        className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                        Send to Notion
-                        <svg
-                            className="ml-2 h-3.5 w-3.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 14 10"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9"
-                            />
-                        </svg>
-                    </div>
                 </div>
-            </div>
+            </li>
         );
     });
 
     return (
         <>
-            <div className="flex min-h-screen items-center justify-center">
+            <div className="flex min-h-screen items-center justify-center py-20">
                 {summaries.length ? (
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <ul
+                        role="list"
+                        className="w-[80%] divide-y divide-gray-100 overflow-hidden rounded-3xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5 dark:divide-gray-700 dark:bg-gray-800 sm:rounded-xl"
+                    >
                         {populateSummaries}
-                    </div>
+                    </ul>
                 ) : (
                     <div
                         role="status"
