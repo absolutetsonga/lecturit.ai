@@ -12,8 +12,9 @@ export const main = async (template, text) => {
         inputVariables: ['text'],
     });
 
-    const formattedTitle = await prompt.format({ text: text });
-    const result = await llm.call(formattedTitle);
+    const formattedPrompt = await prompt.format({ text: text });
+
+    const result = await llm.call(formattedPrompt);
 
     return result;
 };

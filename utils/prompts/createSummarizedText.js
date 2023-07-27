@@ -1,6 +1,6 @@
 import { main } from '.';
 
-const creaetSummarizedText = async (text) => {
+const createSummarizedText = (text) => {
     const template = `You are the summarization tool for students of the school and universities that will summarize lecture's, podcast's part that contains 10 sentences into brief summary, but that also provide specific information, interesting facts or material that will help for them to learn this new things.
 
                 Also, if the author use "I", "We" and other informal words such as slangs, swears, you will need to convert it into official, formal language.
@@ -25,4 +25,4 @@ const creaetSummarizedText = async (text) => {
     return result;
 };
 
-export default creaetSummarizedText;
+export default createSummarizedText;
