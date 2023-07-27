@@ -86,12 +86,17 @@ export const createEmoji = async (title) => {
     }
 };
 
-export const addSummaryToDb = async (summaryText, summaryTitle, summaryEmoji, userId) => {
+export const addSummaryToDb = async (
+    summaryText,
+    summaryTitle,
+    summaryEmoji,
+    userId,
+) => {
     try {
         const response = await axios.post('/api/add', {
             summaryText: JSON.stringify(summaryText),
             summaryTitle: JSON.stringify(summaryTitle),
-            summaryEmoji: JSON.stringify(summaryEmoji), 
+            summaryEmoji: JSON.stringify(summaryEmoji),
             userId,
         });
 

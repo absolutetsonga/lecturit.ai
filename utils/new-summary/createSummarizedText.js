@@ -1,7 +1,7 @@
 import { OpenAI } from 'langchain/llms/openai';
 import { PromptTemplate } from 'langchain/prompts';
 
-const summarizeText = async (text) => {
+const creaetSummarizedText = async (text) => {
     const llm = new OpenAI({
         temperature: 0.0,
         openAIApiKey: process.env.OPENAI_API_KEY,
@@ -38,4 +38,4 @@ const summarizeText = async (text) => {
     return result;
 };
 
-export default summarizeText;
+export default creaetSummarizedText;
