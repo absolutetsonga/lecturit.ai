@@ -1,12 +1,6 @@
-import { OpenAI } from 'langchain/llms/openai';
-import { PromptTemplate } from 'langchain/prompts';
+import { main } from '.';
 
 const createTitleText = async (text) => {
-    const llm = new OpenAI({
-        temperature: 0.0,
-        openAIApiKey: process.env.OPENAI_API_KEY,
-    });
-
     const template = `You are the title creator tool based on the 10-sentence introduction of the summary. You are serving students of the school and universities that will read your title and you need to bait them with your interesting article.
 
     Here are a few examples of how you need to act:
@@ -21,13 +15,7 @@ const createTitleText = async (text) => {
     Input: <<<{text}>>>.
     Output: `;
 
-    const prompt = new PromptTemplate({
-        template: template,
-        inputVariables: ['text'],
-    });
-
-    const formattedTitle = await prompt.format({ text: text });
-    const result = await llm.call(formattedTitle);
+    const result = await main(template, text);
 
     return result;
 };
