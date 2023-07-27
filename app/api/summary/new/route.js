@@ -1,7 +1,7 @@
 import { connectToDb } from '@/utils/database';
 
 import getStructuredSubarrays from '@/utils/new-summary/getStructuredSubarrays';
-import summarizeText from '@/utils/new-summary/summarizeText';
+import creaetSummarizedText from '@/utils/new-summary/createSummarizedText';
 
 export const POST = async (req) => {
     const { transcript } = await req.json();
@@ -15,7 +15,7 @@ export const POST = async (req) => {
 
         for (let i = 0; i < texts.length; i++) {
             let text = texts[i];
-            let result = await summarizeText(text);
+            let result = await creaetSummarizedText(text);
 
             summarizedTexts.push(result);
         }

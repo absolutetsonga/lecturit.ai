@@ -9,8 +9,6 @@ export const POST = async (req) => {
 
         const emoji = await createIconPrompt(title);
 
-        console.log({ emoji });
-
         return new Response(JSON.stringify(emoji), {
             status: 201,
         });

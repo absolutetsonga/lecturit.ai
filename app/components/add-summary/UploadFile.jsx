@@ -43,25 +43,23 @@ export const UploadFile = () => {
             const summaryTitle = await createTitle(summaryTexts[0]);
             const summaryEmoji = await createEmoji(summaryTitle);
 
-            console.log(summaryEmoji);
-
-            setTitle(summaryTitle);
             setSummaryText(summaryTexts.join(''));
-            setEmoji(summaryEmoji);
+            setTitle(summaryTitle.trim());
+            setEmoji(summaryEmoji.trim());
 
             const keys = await getKeys(session?.user?.id);
 
             const summary = await addSummaryToDb(
                 summaryTexts.join(''),
-                summaryTitle,
-                summaryEmoji,
+                summaryTitle.trim(),
+                summaryEmoji.trim(),
                 session?.user?.id,
             );
 
             const response = await sendToNotion(
                 summaryTexts,
-                summaryTitle,
-                summaryEmoji,
+                summaryTitle.trim(),
+                summaryEmoji.trim(),
                 keys,
             );
 
