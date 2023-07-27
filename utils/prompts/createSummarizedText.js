@@ -1,13 +1,6 @@
-import { OpenAI } from 'langchain/llms/openai';
-import { PromptTemplate } from 'langchain/prompts';
+import { main } from '.';
 
 const creaetSummarizedText = async (text) => {
-    const llm = new OpenAI({
-        temperature: 0.0,
-        openAIApiKey: process.env.OPENAI_API_KEY,
-        modelName: 'gpt-3.5-turbo-16k',
-    });
-
     const template = `You are the summarization tool for students of the school and universities that will summarize lecture's, podcast's part that contains 10 sentences into brief summary, but that also provide specific information, interesting facts or material that will help for them to learn this new things.
 
                 Also, if the author use "I", "We" and other informal words such as slangs, swears, you will need to convert it into official, formal language.
@@ -27,13 +20,7 @@ const creaetSummarizedText = async (text) => {
                 Input: <<<{text}>>>.
                 Output: YOUR RESPONSE HERE.`;
 
-    const prompt = new PromptTemplate({
-        template: template,
-        inputVariables: ['text'],
-    });
-
-    const formattedSummary = await prompt.format({ text: text });
-    const result = await llm.call(formattedSummary);
+    const result = main(template, text);
 
     return result;
 };
