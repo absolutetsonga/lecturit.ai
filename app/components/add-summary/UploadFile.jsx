@@ -71,7 +71,7 @@ export const UploadFile = () => {
         }
     };
 
-    if (status === 'loading') return <> Loading </>;
+    if (status === 'loading') return <> Loading... </>;
 
     return (
         <div className="flex w-full max-w-5xl flex-col items-center gap-20">

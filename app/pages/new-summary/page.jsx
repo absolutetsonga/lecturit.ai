@@ -11,6 +11,8 @@ import { RecordAudio } from '@/app/components/add-summary/RecordAudio';
 import { TabDivider } from '@/app/components/add-summary/TabDivider';
 import { useCheckAuth } from '@/hooks/useCheckAuth';
 
+import { SkeletonAddSummary } from '@/app/components/skeleton/SkeletonAddSummary';
+
 const newSummary = () => {
     const { data: session } = useSession();
 
@@ -29,7 +31,8 @@ const newSummary = () => {
         },
     ]);
 
-    if (!session || !session?.user || !session?.user?.id) return <> loading </>;
+    if (!session || !session?.user || !session?.user?.id)
+        return <SkeletonAddSummary />;
 
     return (
         <div className="flex min-h-[100vh] min-w-[100%] max-w-7xl flex-col items-center gap-10 pt-20">
