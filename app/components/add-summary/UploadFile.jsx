@@ -12,6 +12,7 @@ import {
     getKeys,
     createTitle,
     addSummaryToDb,
+    createEmoji,
 } from '@/utils/APIHandlers';
 
 import { Accordion } from './Accordion';
@@ -19,9 +20,10 @@ import { Accordion } from './Accordion';
 export const UploadFile = () => {
     const { data: session, status } = useSession();
 
-    const [transcribeText, setTranscribeText] = useState();
-    const [summaryText, setSummaryText] = useState();
-    const [title, setTitle] = useState();
+    const [transcribeText, setTranscribeText] = useState('');
+    const [summaryText, setSummaryText] = useState('');
+    const [title, setTitle] = useState('');
+    const [emoji, setEmoji] = useState('');
 
     const [file, setFile] = useState();
 
@@ -39,21 +41,27 @@ export const UploadFile = () => {
 
             const summaryTexts = await addSummary(transcriptedText);
             const summaryTitle = await createTitle(summaryTexts[0]);
+            const summaryEmoji = await createEmoji(summaryTitle);
+
+            console.log(summaryEmoji);
 
             setTitle(summaryTitle);
             setSummaryText(summaryTexts.join(''));
+            setEmoji(summaryEmoji);
 
             const keys = await getKeys(session?.user?.id);
 
             const summary = await addSummaryToDb(
                 summaryTexts.join(''),
                 summaryTitle,
+                summaryEmoji,
                 session?.user?.id,
             );
 
             const response = await sendToNotion(
                 summaryTexts,
                 summaryTitle,
+                summaryEmoji,
                 keys,
             );
 
@@ -84,6 +92,7 @@ export const UploadFile = () => {
                     transcribeText={transcribeText}
                     summaryText={summaryText}
                     title={title}
+                    emoji={emoji}
                 />
             </div>
         </div>

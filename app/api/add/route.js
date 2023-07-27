@@ -2,7 +2,7 @@ import Summary from "@/models/summary";
 import { connectToDb } from "@/utils/database";
 
 export const POST = async (req) => {
-    const { summaryText, summaryTitle, userId } = await req.json();
+    const { summaryText, summaryTitle, summaryEmoji, userId } = await req.json();
 
     try {
         await connectToDb();
@@ -10,7 +10,8 @@ export const POST = async (req) => {
         const response = await Summary.create({
             user: userId,
             summary: summaryText,
-            title: summaryTitle
+            title: summaryTitle,
+            emoji: summaryEmoji
         });
 
         return new Response(JSON.stringify(response), {

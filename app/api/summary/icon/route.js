@@ -1,15 +1,17 @@
 import { connectToDb } from '@/utils/database';
-import createTitleText from '@/utils/prompts/createTitleText';
+import createIconPrompt from '@/utils/prompts/createIconPrompt';
 
 export const POST = async (req) => {
-    const { text } = await req.json();
+    const { title } = await req.json();
 
     try {
         await connectToDb();
 
-        const title = await createTitleText(text); 
+        const emoji = await createIconPrompt(title);
 
-        return new Response(JSON.stringify(title), {
+        console.log({ emoji });
+
+        return new Response(JSON.stringify(emoji), {
             status: 201,
         });
     } catch (err) {

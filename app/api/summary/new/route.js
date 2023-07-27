@@ -17,7 +17,6 @@ export const POST = async (req) => {
             let text = texts[i];
             let result = await summarizeText(text);
 
-            console.log({ input: text, output: result });
             summarizedTexts.push(result);
         }
 

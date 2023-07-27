@@ -2,8 +2,6 @@ import { OpenAI } from 'langchain/llms/openai';
 import { PromptTemplate } from 'langchain/prompts';
 
 const createTitleText = async (text) => {
-    console.log({ textInsideCreateTitleText: text });
-    
     const llm = new OpenAI({
         temperature: 0.0,
         openAIApiKey: process.env.OPENAI_API_KEY,
@@ -30,8 +28,6 @@ const createTitleText = async (text) => {
 
     const formattedTitle = await prompt.format({ text: text });
     const result = await llm.call(formattedTitle);
-
-    console.log({ title: result });
 
     return result;
 };

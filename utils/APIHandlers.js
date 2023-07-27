@@ -40,12 +40,18 @@ export const getKeys = async (userId) => {
     }
 };
 
-export const sendToNotion = async (formattedResults, summaryTitle, keys) => {
+export const sendToNotion = async (
+    formattedResults,
+    summaryTitle,
+    summaryEmoji,
+    keys,
+) => {
     try {
         const response = await axios.post('/api/notion/new', {
             formattedResults: JSON.stringify(formattedResults),
-            keys,
             summaryTitle,
+            summaryEmoji,
+            keys,
         });
 
         return response;
@@ -60,20 +66,32 @@ export const createTitle = async (text) => {
     try {
         const response = await axios.post('/api/summary/title/new', { text });
 
-        console.log(response);
         return response.data;
     } catch (err) {
         console.error(
-            `Error while trying to send request for creating title to GPT: ${err.message}`,
+            `Error while trying to send request for creating title for text: ${err.message}`,
         );
     }
 };
 
-export const addSummaryToDb = async (summaryText, summaryTitle, userId) => {
+export const createEmoji = async (title) => {
+    try {
+        const response = await axios.post('/api/summary/icon', { title });
+
+        return response.data;
+    } catch (err) {
+        console.error(
+            `Error while trying to send request for creating emoji for text: ${err.message}`,
+        );
+    }
+};
+
+export const addSummaryToDb = async (summaryText, summaryTitle, summaryEmoji, userId) => {
     try {
         const response = await axios.post('/api/add', {
             summaryText: JSON.stringify(summaryText),
             summaryTitle: JSON.stringify(summaryTitle),
+            summaryEmoji: JSON.stringify(summaryEmoji), 
             userId,
         });
 

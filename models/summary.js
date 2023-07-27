@@ -13,7 +13,11 @@ const SummarySchema = new Schema({
 
     title: {
         type: String,
-    }
+    },
+
+    emoji: {
+        type: String,
+    },
 });
 
 const Summary = models.Summary || model('Summary', SummarySchema);

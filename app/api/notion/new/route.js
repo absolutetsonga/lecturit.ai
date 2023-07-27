@@ -2,7 +2,8 @@ import { connectToDb } from '@/utils/database';
 import { Client } from '@notionhq/client';
 
 export const POST = async (req) => {
-    const { formattedResults, summaryTitle, keys } = await req.json();
+    const { formattedResults, summaryTitle, summaryEmoji, keys } =
+        await req.json();
 
     const { notionIntegrationSecret, notionPageId } = keys;
 
@@ -27,13 +28,16 @@ export const POST = async (req) => {
                     type: 'page_id',
                     page_id: notionPageId,
                 },
+                icon: {
+                    type: 'emoji',
+                    emoji: `${summaryEmoji}`,
+                },
                 properties: {
                     title: {
                         title: [
                             {
                                 text: {
-                                    content:
-                                        summaryTitle,
+                                    content: summaryTitle,
                                 },
                             },
                         ],
