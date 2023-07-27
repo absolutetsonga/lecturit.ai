@@ -57,11 +57,39 @@ const profile = () => {
         // receiving result and displaying it.d
     };
 
-    if (!session || !session.user || !session.user.id) return <> Loading... </>;
+    if (!session || !session.user || !session.user.id) {
+        return (
+            <div
+                role="status"
+                className="flex min-h-[100vh] w-full animate-pulse flex-col items-center justify-center gap-20"
+            >
+                <div>
+                    <div className="mb-4 h-6 w-[300px] rounded-full bg-gray-200 dark:bg-gray-700 md:w-[500px]"></div>
+                </div>
+                <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                        <div className="mb-2.5 h-6 w-[200px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                        <div className="mb-2.5 h-8 w-[400px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <div className="mb-2.5 h-6 w-[130px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                        <div className="mb-2.5 h-8 w-[400px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+
+                    <div className="mb-2.5 h-11 w-[400px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
+
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex min-h-[100vh] flex-col items-center justify-center gap-20">
-            <h3 className="text-3xl font-bold">Add Your Summaries in Notion</h3>
+            <h3 className="text-2xl font-bold sm:text-3xl">
+                Add Your Summaries in Notion
+            </h3>
 
             <form className="flex flex-col items-center justify-center">
                 <div className="flex flex-col gap-6 sm:col-span-4">
@@ -75,7 +103,7 @@ const profile = () => {
                         <div className="mt-2">
                             <input
                                 type="text"
-                                className="flex h-[40px] w-[400px] flex-1 border-2 border-white bg-transparent px-2 sm:text-sm sm:leading-6"
+                                className="flex h-[40px] w-[300px] flex-1 border-2 border-white bg-transparent px-2 sm:text-sm sm:leading-6 md:w-[400px]"
                                 placeholder="Your Integration Secret"
                                 onChange={handleNotionIntegrationSecret}
                                 value={integrationSecret}
@@ -98,7 +126,7 @@ const profile = () => {
                         <div className="mt-2">
                             <input
                                 type="text"
-                                className="flex h-[40px] w-[400px] flex-1 border-2 border-white bg-transparent px-2 sm:text-sm sm:leading-6"
+                                className="flex h-[40px] w-[300px] flex-1 border-2 border-white bg-transparent px-2 sm:text-sm sm:leading-6 md:w-[400px]"
                                 placeholder="Your Page ID"
                                 onChange={handleNotionPageId}
                                 value={pageId}
