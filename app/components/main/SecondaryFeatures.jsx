@@ -14,7 +14,7 @@ const features = [
     {
         name: 'Reporting',
         summary:
-            'Stay on top of things with always up-to-date reporting features.',
+            'Stay on top of things with up-to-date summaries.',
         description:
             'We talked about reporting in the section above but we needed three items here, so mentioning it one more time for posterity.',
         image: screenshotProfitLoss,
